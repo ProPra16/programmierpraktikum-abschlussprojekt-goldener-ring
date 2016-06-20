@@ -19,3 +19,7 @@
 .menu-item{
     -fx-background-color: #2a2929; 
 }
+
+#SplitPane{
+    -fx-background-color: #565353; 
+}
