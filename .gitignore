@@ -1,0 +1,6 @@
+TTDHelper/build/*
+TTDHelper/dist/*
+TTDHelper/nbproject/*
+TTDHelper/test/*
+TTDHelper/build.xml
+TTDHelper/manifest.mf
