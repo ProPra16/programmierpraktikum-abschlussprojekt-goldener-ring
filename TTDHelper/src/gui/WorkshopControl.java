@@ -33,7 +33,6 @@ public class WorkshopControl implements Initializable {
     private Stage stage;
     private Scene scene;
     private Pane root;
-    private boolean add;
 
     public WorkshopControl() {
 
