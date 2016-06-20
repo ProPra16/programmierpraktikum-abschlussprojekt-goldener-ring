@@ -11,23 +11,23 @@
     <children>            
         <MenuBar >
             <menus>
-                <Menu id="Menu" text="Datei" >
+                <Menu text="Datei" >
                     <items>
                         <MenuItem id="MenuItem" text="Test"  >
                         </MenuItem>
                     </items>              
                 </Menu> 
-                <Menu id="Menu" text="About">
+                <Menu text="About">
 
                 </Menu>
-                <Menu id="Menu" text="Help">
+                <Menu text="Help">
 
                 </Menu>
             </menus>
         </MenuBar>     
-        <SplitPane id="SplitPane" layoutX="0" layoutY="30" prefHeight="400" prefWidth="1200"> 
+        <SplitPane layoutX="0" layoutY="30" prefHeight="400" prefWidth="1200" dividerPositions="0.5" > 
             <AnchorPane>
-                    <TextArea>                        
+                    <TextArea id="textArea" fx:id="textArea">                        
                     </TextArea>                  
             </AnchorPane>               
                     
