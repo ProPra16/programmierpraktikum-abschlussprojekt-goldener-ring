@@ -7,29 +7,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="root" prefHeight="800.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="gui.WorkshopControl">
+<AnchorPane id="root" prefHeight="800.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WorkshopControl">
     <children>            
-        <MenuBar >
+        <MenuBar>
             <menus>
-                <Menu text="Datei" >
-                    <items>
-                        <MenuItem id="MenuItem" text="Test"  >
+                <Menu text="Datei" /> 
+                <Menu onAction="#showAbout" text="About">
+               <items>
+                        <MenuItem id="MenuItem" onAction="#showAbout" text="Test">
                         </MenuItem>
-                    </items>              
-                </Menu> 
-                <Menu text="About">
-
-                </Menu>
+               </items></Menu>
                 <Menu text="Help">
 
                 </Menu>
             </menus>
         </MenuBar>     
-        <SplitPane layoutX="0" layoutY="30" prefHeight="400" prefWidth="1200" dividerPositions="0.5" > 
-            <AnchorPane>
-                    <TextArea id="textArea" fx:id="textArea">                        
-                    </TextArea>                  
-            </AnchorPane>               
+        <SplitPane layoutX="0" layoutY="30" prefHeight="400" prefWidth="1200">
+           <items> 
+               <AnchorPane>
+                  <children>
+                          <TextArea id="textArea" fx:id="textArea">                        
+                    </TextArea>
+                  </children>                  
+               </AnchorPane>
+           </items>               
                     
         </SplitPane>   
     </children>
