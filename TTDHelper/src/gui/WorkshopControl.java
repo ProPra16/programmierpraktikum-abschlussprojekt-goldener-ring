@@ -1,4 +1,4 @@
-package gui;
+﻿package gui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,36 +54,7 @@ public class WorkshopControl implements Initializable {
         // Scene auf Stage bringen               
         this.stage.setScene(scene);
         this.stage.show();
-    }
-    
-    /*
-    private void createWorkshopScene() {
-        // root Pane erstellen
-        this.root = new Pane();
-
-        // Erstellen von Anchor Panes
-        AnchorPane a1 = new AnchorPane();
-
-        // Erstelle Inhalt für Anchor 1
-        MenuBar menubar = new MenuBar();
-        menubar.setId("MenuBar");
-
-        Menu datei = new Menu("Datei");
-        Menu about = new Menu("About");
-        Menu help = new Menu("Help");
-
-        MenuItem item1 = new MenuItem("");
-
-        menubar.getMenus().addAll(datei, about, help);
-        a1.getChildren().add(menubar);
-
-        // Anchor to root
-        root.getChildren().addAll(a1);
-
-        this.scene = new Scene(root);
-        this.scene.setFill(Color.BLACK);
-    }*/
-    
+    }    
     
     //Popup aboutPopup;
     
