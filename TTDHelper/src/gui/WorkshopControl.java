@@ -84,12 +84,12 @@ public class WorkshopControl implements Initializable {
         this.scene.setFill(Color.BLACK);
     }*/
     
-    /*
-    Popup aboutPopup;
+    
+    //Popup aboutPopup;
     
     @FXML
     void showAbout()
-    {
+    {/*
         if(aboutPopup == null)
         {
             aboutPopup = new Popup();
@@ -103,6 +103,6 @@ public class WorkshopControl implements Initializable {
             aboutPopup.setOnCloseRequest((WindowEvent event) -> {
                 aboutPopup = null;
             });
-        }
-    }*/
+        }*/
+    }
 }
