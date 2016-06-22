@@ -8,11 +8,16 @@
 
 #menubar .label{
     -fx-text-fill: whitesmoke;
-    -fx-background-color: #2a2929;
+    /*-fx-background-color: #2a2929;*/
 }
 
 #menu{
     
+}
+
+#menu:hover, menu:showing{
+    -fx-text-fill: whitesmoke;
+    -fx-background-color: darkgray;
 }
 
 #menuitem{
