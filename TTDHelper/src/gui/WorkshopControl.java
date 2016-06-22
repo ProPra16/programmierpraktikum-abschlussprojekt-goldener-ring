@@ -1,23 +1,16 @@
-﻿package gui;
+package gui;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-/**
- * FXML Controller class
- *
- * @author Lars
- */
 public class WorkshopControl implements Initializable {
 
     private Stage stage;
@@ -27,37 +20,29 @@ public class WorkshopControl implements Initializable {
     public WorkshopControl() {
 
     }
-
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    
+    @FXML 
+    protected void handleOnAction(Event e){
+        System.out.println("Ready Button pressed");
     }
 
     public void init(Stage stage) throws IOException {
         // stage importieren
         this.stage = stage;
         this.root = FXMLLoader.load(getClass().getResource("workshop.fxml"));
-        this.scene = new Scene(root);
-
-        // Scene erstellen lassen
-        //this.createWorkshopScene();
+        
         // Import von Style
         URL stylesheet = getClass().getResource("workshop.css");
         this.root.getStylesheets().add(stylesheet.toExternalForm());
 
-        // Scene auf Stage bringen               
+        // Scene auf Stage bringen          
+        this.scene = new Scene(root);
         this.stage.setScene(scene);
         this.stage.show();
-    }    
+    }
     
-    //Popup aboutPopup;
     
+    //Popup aboutPopup;    
     @FXML
     void showAbout()
     {/*
@@ -75,5 +60,10 @@ public class WorkshopControl implements Initializable {
                 aboutPopup = null;
             });
         }*/
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
 }
