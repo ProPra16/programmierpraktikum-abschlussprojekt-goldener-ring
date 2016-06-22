@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -16,6 +17,7 @@ public class WorkshopControl implements Initializable {
     private Stage stage;
     private Scene scene;
     private Pane root;
+    private GridPane catalogGrid;
 
     public WorkshopControl() {
 
@@ -27,18 +29,7 @@ public class WorkshopControl implements Initializable {
     }
 
     public void init(Stage stage) throws IOException {
-        // stage importieren
-        this.stage = stage;
-        this.root = FXMLLoader.load(getClass().getResource("workshop.fxml"));
-        
-        // Import von Style
-        URL stylesheet = getClass().getResource("workshop.css");
-        this.root.getStylesheets().add(stylesheet.toExternalForm());
 
-        // Scene auf Stage bringen          
-        this.scene = new Scene(root);
-        this.stage.setScene(scene);
-        this.stage.show();
     }
     
     
