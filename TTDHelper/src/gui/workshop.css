@@ -1,5 +1,5 @@
 #borderpane{
-    -fx-background: #2a2929;
+    -fx-background: #2a2929;    
 }
 
 #menubar{
@@ -46,4 +46,8 @@
 
 #textfield{
     -fx-background-color: #666666;
+}
+
+#catalogGrid{
+    -fx-padding: 25;
 }
