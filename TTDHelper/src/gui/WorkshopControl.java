@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -57,19 +58,17 @@ public class WorkshopControl implements Initializable {
 
     @FXML
     protected void AboutOnAction(ActionEvent e) {
-        String text = "Test";
-        VBox rootTmp = new VBox();
-        rootTmp.setId("vbox");
+        String text = "Baris, Kirill, Lars, Simon";
+        BorderPane rootTmp = new BorderPane();
+        rootTmp.setId("borderpane");
 
-        Label topLabel = new Label("About Us");
+        Label topLabel = new Label("Created by:");
         topLabel.setId("topLabel");
-        Label bottomLabel = new Label(text);
-        bottomLabel.setId("bottomLabel");
-
-        VBox.setVgrow(bottomLabel, Priority.ALWAYS);
-        VBox.setVgrow(topLabel, Priority.ALWAYS);
+        Label centerLabel = new Label(text);
+        centerLabel.setId("centerLabel");
         
-        rootTmp.getChildren().addAll(topLabel, bottomLabel);
+        rootTmp.setTop(topLabel);
+        rootTmp.setCenter(centerLabel);
 
         // Import von Styles
         URL stylesheet = WorkshopControl.class.getResource("about.css");
@@ -77,6 +76,7 @@ public class WorkshopControl implements Initializable {
 
         //anzeigen lassen
         Stage stage = new Stage();
+        stage.setTitle("About Us");
         stage.setScene(new Scene(rootTmp, 400, 200));
         stage.centerOnScreen();
         stage.show();
