@@ -1,5 +1,8 @@
 package xml;
 
+import gui.WorkshopControl;
+import java.util.ArrayList;
+import java.util.List;
 import util.Exercise;
 
 /** an example sink for content events. 
@@ -10,12 +13,44 @@ public final class Sink
         implements org.xml.sax.ContentHandler
 { 
     
-    private static Exercise exercise;
+    private Exercise exercise;
     
-    final private static void print 
+    private List<String> collectStrings;
+    
+    final private void process 
         ( final String context, final String text ) 
-    {       
-        System.out.println( context + ": \"" + text + "\"." ); 
+    {
+        if(context.equals("startElement"))
+        {
+            if(!text.equals("exercises") && !text.equals("classes") && 
+                    !text.equals("exercise"))
+                this.collectStrings = new ArrayList();
+            else if(text.equals("exercise"))
+                this.exercise = new Exercise();
+        } else if(context.equals("endElement"))
+        {
+            if(text.equals("exercises") || text.equals("classes"))
+                return;
+            else if(text.equals("class"))
+                this.exercise.addClass(this.collectStrings.get(0), 
+                        this.collectStrings.subList(1, 
+                                this.collectStrings.size()));
+            else if(text.equals("test"))
+                this.exercise.addTest(this.collectStrings.get(0), 
+                        this.collectStrings.subList(1, 
+                                this.collectStrings.size()));
+            else if(text.equals("name"))
+                this.exercise.setName(this.collectStrings.get(0));
+            else if(text.equals("description"))
+                this.exercise.setName(this.collectStrings.get(0));
+            else if(text.equals("exercise"))
+                WorkshopControl.addExercise(exercise);
+        } else if(context.equals("characters"))
+            this.collectStrings.add(text);
+        
+        
+        
+        System.out.println( context + ": \"" + text + "\"." );
     }
 
     @Override
@@ -24,7 +59,7 @@ public final class Sink
                 final String type, final org.xml.sax.Attributes attributes )
                     throws org.xml.sax.SAXException 
     {       
-        print( "startElement", type ); 
+        process( "startElement", type );
     }
 
     @Override
@@ -32,7 +67,7 @@ public final class Sink
         ( final String namespace, final String localname, final String type ) 
             throws org.xml.sax.SAXException 
     { 
-        print( "endElement  ", type ); 
+        process( "endElement  ", type ); 
     }
 
     @Override
@@ -42,6 +77,6 @@ public final class Sink
         final String text = new String( ch, start, len ); 
         final String text1 = text.trim(); 
         if( text1.length() > 0 )
-            print( "characters  ", text1 ); 
+            process( "characters  ", text1 ); 
     }
 }
