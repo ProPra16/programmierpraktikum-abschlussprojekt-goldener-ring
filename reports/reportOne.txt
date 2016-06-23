@@ -1,0 +1,25 @@
+Vorab:
+
+Die Gruppe setzt sich aus Baris Üctas, Kirill Borodkin, Lars Mehnert und Simon Latusek zusammen.
+
+Besprechung:
+
+Das Programm soll eine workshop.fxml und eine workshop.css haben in der die Styles, sowie das Startfenster 
+geregelt ist. Der Controller von workshop.fxml passt nach Auswahl der entsprechenden Übung aus dem Katalog die
+die gui an.
+
+Der Katalog soll via xml geladen werden.
+
+Nach Auswahl der Übung wird die gui gewechselt und die nun veränderte Struktur sieht folgendes vor:
+
+1. Aufbau in einem BorderPane
+2. Zentral ist ein TextArea/TextField o.ä. im Center, wo der Benutzer die Möglichkeit hat seinen Code zu erstellen.
+3. Am rechten Rand soll es eine Anzeige des aktuell zu bearbeitenden Test geben, damit man nicht unbedingt zurück gehen muss
+4. Am linken Rand soll es eine visuelle Übersicht geben, in welcher Phase man sich gerade befindet.
+5. Unten soll es Buttons geben zum weiter-, bzw. zurückgehen. 
+
+Dies ist erstmal die Planung, es kann jedoch von der Struktur her Änderungen geben.
+
+Es wird ein gui Package geben, welches alle .fxml .css und Controller Klassen enthalten soll. Ein util Package beinhaltet jegliche 
+Übungen. Ein xml Package sorgt für den Import bzw. das laden der Übungen. 
+
