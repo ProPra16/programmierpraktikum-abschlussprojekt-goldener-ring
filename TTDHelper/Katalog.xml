@@ -1,5 +1,6 @@
 <excercises>
-    <exercise name="Romische Zahlen">
+    <exercise>
+        <name>Römische Zahlen</name>
         <description>Konvertiert arabische in romische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
@@ -23,7 +24,8 @@
             <timetracking value="True" />
         </config>
     </exercise>
-    <exercise name="Romische Zahlen">
+    <exercise>
+        <name>Romische Zahlen</name>
         <description>Konvertiert arabische in romische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
