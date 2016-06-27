@@ -20,6 +20,9 @@ public final class Sink
     final private void process 
         ( final String context, final String text ) 
     {
+        while(!text.equals("exercises") && !text.equals("exercise") && 
+                this.exercise == null) { }
+            
         if(context.equals("startElement"))
         {
             if(!text.equals("exercises") && !text.equals("classes") && 
@@ -50,7 +53,7 @@ public final class Sink
         
         
         
-        System.out.println( context + ": \"" + text + "\"." );
+        //System.out.println( context + ": \"" + text + "\"." );
     }
 
     @Override
@@ -67,7 +70,7 @@ public final class Sink
         ( final String namespace, final String localname, final String type ) 
             throws org.xml.sax.SAXException 
     { 
-        process( "endElement  ", type ); 
+        process( "endElement", type ); 
     }
 
     @Override
@@ -77,6 +80,6 @@ public final class Sink
         final String text = new String( ch, start, len ); 
         final String text1 = text.trim(); 
         if( text1.length() > 0 )
-            process( "characters  ", text1 ); 
+            process( "characters", text1 ); 
     }
 }
