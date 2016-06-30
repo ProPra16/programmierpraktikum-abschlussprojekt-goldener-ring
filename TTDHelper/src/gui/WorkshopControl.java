@@ -20,8 +20,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -41,18 +43,35 @@ public class WorkshopControl implements Initializable {
     
     private static List<Exercise> exercises;
     
+    private Timer timer;
+    
     @FXML
     private BorderPane root;
+    
     @FXML
     private GridPane catalogGrid;
     private TextArea textArea;
+    
     @FXML
     private MenuItem about;
+    
+    @FXML
+    private Label timeLabel;
+    
+    @FXML
+    private CheckBox babysteps, attd;
 
     
     @FXML 
     protected void handleOnAction(Event e){
+        this.setExtensions();
         System.out.println("Ready Button pressed");
+    }            
+    
+    @FXML
+    protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
+        ScrollPane center = FXMLLoader.load(WorkshopControl.class.getResource("scrollPaneKatalog.fxml"));
+        root.setCenter(center);
     }
     
     void readCatalog()
@@ -121,16 +140,6 @@ public class WorkshopControl implements Initializable {
         });
     }
 
-    private void loadInfoBar() {
-        try {
-            GridPane info = FXMLLoader.load(WorkshopControl.class.getResource("stats.fxml"));
-            this.root.setRight(info);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(WorkshopControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private static class WSCButton extends Button {
         Exercise exercise;
         public WSCButton(String name, Exercise exercise) {
@@ -144,6 +153,16 @@ public class WorkshopControl implements Initializable {
         }
     }
     
+    private void setExtensions(){
+        // lese Status ein
+        if(babysteps.isPressed()) timer = new Timer();
+        //attd noch ausstehend
+        
+        // deaktiviere Checkboxen
+        babysteps.setDisable(true);
+        attd.setDisable(true);
+    }
+    
     private void changeToTest(Exercise exercise) {
         this.textArea = new TextArea();
         this.root.setCenter(this.textArea);
@@ -151,13 +170,14 @@ public class WorkshopControl implements Initializable {
         
         exercise.getTests().values().stream().forEach((ls) -> {
             this.textArea.appendText(String.join(System.lineSeparator(), ls));
-        });
-        
-        this.loadInfoBar();        
+        });              
     }
     
+    public void setTime(String input){
+        timeLabel.setText(input);
+    }
     
-    public class Timer{
+    private class Timer{
     
         //Attribute
         private int seconds;
@@ -171,7 +191,7 @@ public class WorkshopControl implements Initializable {
             timeline = new Timeline(new KeyFrame (Duration.seconds(1), (ActionEvent event) ->{
                 seconds += 1;
                 time = seconds/60 + ":" + seconds%60;
-                //timelabel.setText(time);
+                setTime(time);
             }));
             timeline.play();
         }
