@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -24,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
@@ -139,4 +142,39 @@ public class WorkshopControl implements Initializable {
             this.textArea.appendText(String.join(System.lineSeparator(), ls));
         });
     }
+    
+    
+    public class Timer{
+    
+        //Attribute
+        private int seconds;
+        private String time;
+        private final Timeline timeline;
+        
+        //Konstruktor
+        public Timer(){
+            seconds = 0;
+            
+            timeline = new Timeline(new KeyFrame (Duration.seconds(1), (ActionEvent event) ->{
+                seconds += 1;
+                time = seconds/60 + ":" + seconds%60;
+                //timelabel.setText(time);
+            }));
+            timeline.play();
+        }
+        
+        public void stop(){
+            timeline.stop();
+        }
+        
+        //Getter
+        public int getSeconds(){
+            return seconds;
+        }
+        public String getTime(){
+            return time;
+        }
+    }
+    
+    
 }
