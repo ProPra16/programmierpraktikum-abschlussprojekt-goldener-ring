@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<GridPane id="AnchorPane" fx:id="settingsGridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="gui.WorkshopControl">
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+   </rowConstraints>
+   <children>
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="173.0" text="Babysteps" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <CheckBox fx:id="babystepsBox" alignment="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <CheckBox alignment="CENTER" mnemonicParsing="false" onAction="#attdBox" prefHeight="17.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="115.0" text="ATTD" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="235.0" text="Settings" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="20.0" prefWidth="214.0" text="Statistic" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0" text="Time" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label fx:id="timeLabel" prefHeight="17.0" prefWidth="125.0" text="0:0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="136.0" text="Phase" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Label fx:id="phaseLabel" prefHeight="17.0" prefWidth="226.0" text="choose an exercise ..." GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+   </children>
+</GridPane>
