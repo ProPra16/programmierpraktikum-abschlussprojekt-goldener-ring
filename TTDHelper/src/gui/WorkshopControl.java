@@ -155,7 +155,7 @@ public class WorkshopControl implements Initializable {
     
     private void setExtensions(){
         // lese Status ein
-        if(babysteps.isPressed()) timer = new Timer();
+        if(babysteps.isSelected()) timer = new Timer();
         //attd noch ausstehend
         
         // deaktiviere Checkboxen
@@ -173,10 +173,6 @@ public class WorkshopControl implements Initializable {
         });              
     }
     
-    public void setTime(String input){
-        timeLabel.setText(input);
-    }
-    
     private class Timer{
     
         //Attribute
@@ -191,8 +187,9 @@ public class WorkshopControl implements Initializable {
             timeline = new Timeline(new KeyFrame (Duration.seconds(1), (ActionEvent event) ->{
                 seconds += 1;
                 time = seconds/60 + ":" + seconds%60;
-                setTime(time);
+                timeLabel.setText(time);
             }));
+            timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         }
         
