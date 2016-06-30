@@ -120,6 +120,16 @@ public class WorkshopControl implements Initializable {
         });
     }
 
+    private void loadInfoBar() {
+        try {
+            GridPane info = FXMLLoader.load(WorkshopControl.class.getResource("stats.fxml"));
+            this.root.setRight(info);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(WorkshopControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private static class WSCButton extends Button {
         Exercise exercise;
         public WSCButton(String name, Exercise exercise) {
@@ -141,6 +151,8 @@ public class WorkshopControl implements Initializable {
         exercise.getTests().values().stream().forEach((ls) -> {
             this.textArea.appendText(String.join(System.lineSeparator(), ls));
         });
+        
+        this.loadInfoBar();        
     }
     
     
