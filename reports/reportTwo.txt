@@ -1,0 +1,20 @@
+Zusammenfassung über geschriebenen Code:
+
+- Katalog wird nun beim initialisieren importiert, somit befinden sich alle Aufgaben als WSCButton in tabellenform im Programm
+- WSCButton ist eine inner class, somit wechselt per lambda Expression beim klick auf den WSCButton in den Modus Test 
+- Babysteps, sowie ATTD sind jetzt visuell am rechten Rand anzeigbar
+- für Babysteps wurde eine inner class Timer geschrieben
+- Es wurden zudem Menüpunkte hinzugefügt
+- eine scrollPane.fxml Datei kann geladen werden um zurück ins Menü zu gehen
+
+Zusammenfassung vom Gespräch:
+
+--> Planung: 
+
+- Bis nächste Wochen sollte die gui komplett stehen, sodass nur noch bei Bedarf leichte Änderungen vorgenommen werden
+- Das TextArea worin der User coden kann soll den Inhalt übergeben an eine Klasse, welche den geschrieben code kompilieren soll 
+  und je nach Ausgang über das weitere vorgehen entscheidet
+- evtl. Tests, welche unsere Programme/methoden testen
+- das wechseln der Modi (des Kreislauf; Test; Code; verbessern) soll laufen
+- zurückgehen soll ebenfalls ermöglicht werden
+		

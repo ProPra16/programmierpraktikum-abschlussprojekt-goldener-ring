@@ -64,14 +64,23 @@ public class WorkshopControl implements Initializable {
     
     @FXML 
     protected void handleOnAction(Event e){
-        this.setExtensions();
+        setExtensions();
         System.out.println("Ready Button pressed");
     }            
     
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
+        // stop Time and reset
+        timer.stop();
+        timeLabel.setText("0:0");
+        
+        // load scroll pane with catalog
         ScrollPane center = FXMLLoader.load(WorkshopControl.class.getResource("scrollPaneKatalog.fxml"));
         root.setCenter(center);
+        
+        // aktiviere Checkboxen
+        babysteps.setDisable(false);
+        attd.setDisable(false);
     }
     
     void readCatalog()
@@ -135,7 +144,7 @@ public class WorkshopControl implements Initializable {
         WSCButton btn = new WSCButton(exercise.getName(), exercise);
         btn.setMaxWidth(Double.MAX_VALUE);
         grid.add(btn, 0, grid.getChildren().size()-1);
-        btn.setOnAction((ActionEvent event) -> {
+        btn.setOnAction((ActionEvent event) -> {            
             WorkshopControl.activeObject.changeToTest(btn.getExercise());
         });
     }

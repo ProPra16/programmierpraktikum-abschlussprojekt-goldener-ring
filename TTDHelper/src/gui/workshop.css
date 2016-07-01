@@ -19,8 +19,14 @@
     -fx-background-color: darkgray;
 }
 
-#menuitem{
-    -fx-background-color: #2a2929;
+#menuitem:hover, menuitem:showing{
+    -fx-text-fill: black;
+    -fx-background-color: darkgray;
+}
+
+#menuitem .label{
+    /*-fx-background-color: #2a2929;*/
+    -fx-text-fill: black;
 }
 
 #button{
