@@ -26,8 +26,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,6 +45,8 @@ public class WorkshopControl implements Initializable {
     
     private static List<Exercise> exercises;
     
+    private List<CheckBox> checkboxes;
+    
     private Timer timer;
     
     @FXML
@@ -56,7 +60,7 @@ public class WorkshopControl implements Initializable {
     private MenuItem about;
     
     @FXML
-    private Label timeLabel;
+    private Label timeLabel, phaseLabel;
     
     @FXML
     private CheckBox babysteps, attd;
@@ -64,14 +68,24 @@ public class WorkshopControl implements Initializable {
     
     @FXML 
     protected void handleOnAction(Event e){
-        setExtensions();
+        if(isExcerciseSelected()){
+            int exerciseNr = this.getSelectedExercise(); 
+            if(exerciseNr == -1) return;            
+            else this.changeToTest(exercises.get(exerciseNr));   
+            System.out.println(exercises.get(exerciseNr));
+            setExtensions();
+        }else{
+            System.out.println("No Exercise chosen");
+        } 
         System.out.println("Ready Button pressed");
-    }            
+    }    
+    
+    
     
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
         // stop Time and reset
-        timer.stop();
+        if(timer != null)timer.stop();        
         timeLabel.setText("0:0");
         
         // load scroll pane with catalog
@@ -131,24 +145,37 @@ public class WorkshopControl implements Initializable {
     {
         WorkshopControl.activeObject = this;
         WorkshopControl.exercises = new ArrayList();
-        this.readCatalog();
+        this.readCatalog();       
+        int tmp = catalogGrid.getRowConstraints().size();
+        checkboxes = new ArrayList();
+        for(int i=0; i<(tmp-1); i++){
+            CheckBox cb = new CheckBox();
+            cb.setVisible(true);
+            checkboxes.add(cb);
+            GridPane.setRowIndex(cb, i);
+            GridPane.setColumnIndex(cb, catalogGrid.getColumnConstraints().size()-1);
+            catalogGrid.getChildren().add(cb);            
+        }   
     }
     
-    public static void addExercise(Exercise exercise)
+    public static void addExercise(Exercise exercise) 
     {
         System.out.println(exercise.getName());
         
         WorkshopControl.exercises.add(exercise);
-        GridPane grid = WorkshopControl.activeObject.catalogGrid;
-        
+        GridPane grid = WorkshopControl.activeObject.catalogGrid;        
         WSCButton btn = new WSCButton(exercise.getName(), exercise);
         btn.setMaxWidth(Double.MAX_VALUE);
         grid.add(btn, 0, grid.getChildren().size()-1);
+        /*
         btn.setOnAction((ActionEvent event) -> {            
             WorkshopControl.activeObject.changeToTest(btn.getExercise());
         });
+        */
     }
 
+    
+    // inner class WSCButton
     private static class WSCButton extends Button {
         Exercise exercise;
         public WSCButton(String name, Exercise exercise) {
@@ -162,16 +189,6 @@ public class WorkshopControl implements Initializable {
         }
     }
     
-    private void setExtensions(){
-        // lese Status ein
-        if(babysteps.isSelected()) timer = new Timer();
-        //attd noch ausstehend
-        
-        // deaktiviere Checkboxen
-        babysteps.setDisable(true);
-        attd.setDisable(true);
-    }
-    
     private void changeToTest(Exercise exercise) {
         this.textArea = new TextArea();
         this.root.setCenter(this.textArea);
@@ -182,6 +199,36 @@ public class WorkshopControl implements Initializable {
         });              
     }
     
+    // Hilfsmethoden
+    private int getSelectedExercise(){
+        for(int i=0; i<checkboxes.size(); i++){
+            if(((CheckBox)checkboxes.get(i)).isSelected()) return i;
+        }
+        return -1;
+    }
+    
+    private boolean isExcerciseSelected(){
+        for(int i=0; i<checkboxes.size(); i++){
+            if(((CheckBox)checkboxes.get(i)).isSelected()) return true;
+        }
+        return false;
+    }
+    
+    private void setExtensions(){
+        // ändere phase
+        phaseLabel.setText("writing a Test");
+        
+        // lese Status ein
+        if(babysteps.isSelected()) timer = new Timer();
+        //attd noch ausstehend
+        
+        // deaktiviere Checkboxen
+        babysteps.setDisable(true);
+        attd.setDisable(true);
+    }
+    
+    
+    // inner class Timer
     private class Timer{
     
         //Attribute

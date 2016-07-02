@@ -55,4 +55,7 @@
 
 #catalogGrid{
     /*-fx-padding: 25; Whoever the f*ck wrote that shall rot in hell */
+    -fx-padding: 15;
+    -fx-hgap: 10;
+    -fx-vgap: 15;
 }
