@@ -53,7 +53,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button id="button" fx:id="readyButton" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="25.0" prefWidth="120.0" text="start" GridPane.columnIndex="5" />
+                <Button id="button" fx:id="readyButton" mnemonicParsing="false" onAction="#handleReadyButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="start" GridPane.columnIndex="5" />
+                <Button id="button" fx:id="phaseButton" visible="false"  mnemonicParsing="false" onAction="#handlePhaseButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="Go To Next Phase" GridPane.columnIndex="5" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="541.0" text="Press Button to start your excercise " GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             </children>
         </GridPane>

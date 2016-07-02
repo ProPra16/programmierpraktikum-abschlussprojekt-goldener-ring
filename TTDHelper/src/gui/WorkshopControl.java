@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,10 +23,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,6 +32,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import util.Exercise;
 import xml.Sink;
+import util.CodeCompiler;
 
 public class WorkshopControl implements Initializable {
     
@@ -48,6 +43,8 @@ public class WorkshopControl implements Initializable {
     private List<CheckBox> checkboxes;
     
     private Timer timer;
+    
+    private Phase phase;
     
     @FXML
     private BorderPane root;
@@ -64,23 +61,58 @@ public class WorkshopControl implements Initializable {
     
     @FXML
     private CheckBox babysteps, attd;
+    
+    @FXML
+    private Button phaseButton, readyButton;
 
     
     @FXML 
-    protected void handleOnAction(Event e){
+    protected void handleReadyButtonOnAction(ActionEvent event){
         if(isExcerciseSelected()){
             int exerciseNr = this.getSelectedExercise(); 
             if(exerciseNr == -1) return;            
             else this.changeToTest(exercises.get(exerciseNr));   
             System.out.println(exercises.get(exerciseNr));
             setExtensions();
+            phase = new Phase();
+            
+            System.out.println("Hier");
+            readyButton.setVisible(false);
+            phaseButton.setVisible(true);
         }else{
             System.out.println("No Exercise chosen");
         } 
         System.out.println("Ready Button pressed");
     }    
     
+    @FXML
+    protected void handlePhaseButtonOnAction(ActionEvent event){
+        // code nehmen und checke
+        if(CodeCompiler.isCorrect(((TextArea)root.getCenter()).getText(), phase.getState())){
+            phase.change();
+            // lade neuen Code für entsprechende Phase
+            // evtl. Methode in class Phase
+        }
+    }
     
+    private class Phase{
+        
+        private String state;
+        
+        public Phase(){
+            state = "red";
+        }
+        
+        public void change(){
+            if(state.equals("red")) state = "green";
+            if(state.equals("green")) state = "refactor";
+            if(state.equals("refactor")) state = "red";
+        }
+        
+        public String getState(){
+            return this.state;
+        }
+    }
     
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
@@ -95,6 +127,10 @@ public class WorkshopControl implements Initializable {
         // aktiviere Checkboxen
         babysteps.setDisable(false);
         attd.setDisable(false);
+        
+        // setzte richtige Button
+        readyButton.setVisible(true);
+        phaseButton.setVisible(false);
     }
     
     void readCatalog()
