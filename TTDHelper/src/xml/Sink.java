@@ -1,6 +1,7 @@
 package xml;
 
 import gui.WorkshopControl;
+import java.lang.Character;
 import java.util.ArrayList;
 import java.util.List;
 import util.Exercise;
@@ -45,7 +46,7 @@ public final class Sink
             else if(text.equals("name"))
                 this.exercise.setName(this.collectStrings.get(0));
             else if(text.equals("description"))
-                this.exercise.setName(this.collectStrings.get(0));
+                this.exercise.setDescription(this.collectStrings.get(0));
             else if(text.equals("exercise"))
                 WorkshopControl.addExercise(exercise);
         } else if(context.equals("characters"))
@@ -76,10 +77,9 @@ public final class Sink
     @Override
     final public void characters 
         ( final char[] ch, final int start, final int len )
-    { 
-        final String text = new String( ch, start, len ); 
-        final String text1 = text.trim(); 
-        if( text1.length() > 0 )
-            process( "characters", text1 ); 
+    {
+            final String text1 = new String(ch, start, len ).trim(); 
+            if( text1.length() > 0 )
+                process( "characters", text1 );
     }
 }

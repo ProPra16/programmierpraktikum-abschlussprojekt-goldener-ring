@@ -1,5 +1,7 @@
 package util;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,16 +12,18 @@ import java.util.List;
 public class Exercise {
     private String name;
     private String description;
-    private HashMap<String,List<String>> classes;
-    private HashMap<String,List<String>> tests;
-    double[] config;
+    private final HashMap<String,List<String>> classes;
+    private final HashMap<String,List<String>> tests;
+    private LocalTime babysteps;
+    private boolean timetrack;
 
     public Exercise() {
         this.name = "";
         this.description = "";
         this.classes = new HashMap();
         this.tests = new HashMap();
-        this.config = new double[3];
+        this.babysteps = LocalTime.MIN;
+        this.timetrack = false;
     }
     
     
@@ -54,5 +58,25 @@ public class Exercise {
 
     public void addTest(String name, List<String> lines) {
         this.tests.put(name, lines);
+    }
+    
+    public LocalTime getBabysteps()
+    {
+        return this.babysteps;
+    }
+    
+    public void setBabysteps(LocalTime babysteps)
+    {
+        this.babysteps = babysteps;
+    }
+    
+    public boolean getTimetrack()
+    {
+        return this.timetrack;
+    }
+    
+    public void setTimetrack(boolean timetrack)
+    {
+        this.timetrack = timetrack;
     }
 }

@@ -1,14 +1,11 @@
 package gui;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -23,16 +20,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import util.Exercise;
-import xml.Sink;
 import util.CodeCompiler;
+import util.Exercise;
+import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
     
@@ -71,18 +65,17 @@ public class WorkshopControl implements Initializable {
         if(isExcerciseSelected()){
             int exerciseNr = this.getSelectedExercise(); 
             if(exerciseNr == -1) return;            
-            else this.changeToTest(exercises.get(exerciseNr));   
-            System.out.println(exercises.get(exerciseNr));
+            else this.changeToTest(exercises.get(exerciseNr));
+            System.out.println(exercises.get(exerciseNr).getName());
+            System.out.println((exerciseNr));
             setExtensions();
             phase = new Phase();
-            
-            System.out.println("Hier");
             readyButton.setVisible(false);
             phaseButton.setVisible(true);
         }else{
             System.out.println("No Exercise chosen");
         } 
-        System.out.println("Ready Button pressed");
+        //System.out.println("Ready Button pressed");
     }    
     
     @FXML
@@ -113,7 +106,9 @@ public class WorkshopControl implements Initializable {
             return this.state;
         }
     }
-    
+    /*
+    The f*ck was that for ?
+    it just f*cks up the grid
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
         // stop Time and reset
@@ -131,11 +126,13 @@ public class WorkshopControl implements Initializable {
         // setzte richtige Button
         readyButton.setVisible(true);
         phaseButton.setVisible(false);
-    }
+    }*/
     
     void readCatalog()
     {
-        try
+        
+        DOMReader.parseCatalog();
+        /*try
         {   
             InputSource is = new InputSource(
                 new InputStreamReader(
@@ -147,7 +144,7 @@ public class WorkshopControl implements Initializable {
                     newSAXParser().parse(is, new Sink());
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(WorkshopControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     @FXML
@@ -199,40 +196,30 @@ public class WorkshopControl implements Initializable {
         System.out.println(exercise.getName());
         
         WorkshopControl.exercises.add(exercise);
-        GridPane grid = WorkshopControl.activeObject.catalogGrid;        
-        WSCButton btn = new WSCButton(exercise.getName(), exercise);
-        btn.setMaxWidth(Double.MAX_VALUE);
-        grid.add(btn, 0, grid.getChildren().size()-1);
-        /*
-        btn.setOnAction((ActionEvent event) -> {            
-            WorkshopControl.activeObject.changeToTest(btn.getExercise());
-        });
-        */
-    }
-
-    
-    // inner class WSCButton
-    private static class WSCButton extends Button {
-        Exercise exercise;
-        public WSCButton(String name, Exercise exercise) {
-            super(name);
-            this.exercise = exercise;
-        }
+        GridPane grid = WorkshopControl.activeObject.catalogGrid;
+        GridPane lblGrid = new GridPane();
+        lblGrid.setMaxWidth(Double.MAX_VALUE);
+        grid.add(lblGrid, 0, grid.getChildren().size());
         
-        public Exercise getExercise()
-        {
-            return this.exercise;
-        }
+        lblGrid.add(new Label(exercise.getName()), 0, 0);
+        lblGrid.add(new Label(exercise.getDescription()), 0, 1);
+        
+        ColumnConstraints column = new ColumnConstraints();
+        column.setPercentWidth(70);
+        lblGrid.getColumnConstraints().add(column);
+        
+        lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN) ? 
+                "False":exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
+        lblGrid.add(new Label("Timetrack: " + exercise.getTimetrack()), 1, 1);
     }
     
     private void changeToTest(Exercise exercise) {
         this.textArea = new TextArea();
         this.root.setCenter(this.textArea);
-        List<String> tests = new ArrayList();
         
         exercise.getTests().values().stream().forEach((ls) -> {
             this.textArea.appendText(String.join(System.lineSeparator(), ls));
-        });              
+        });
     }
     
     // Hilfsmethoden

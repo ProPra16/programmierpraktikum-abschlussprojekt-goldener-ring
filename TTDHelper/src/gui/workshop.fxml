@@ -12,7 +12,7 @@
             <menus>
                 <Menu id="menu" mnemonicParsing="false" text="Datas">
                     <items>
-                        <MenuItem id="menuitem" mnemonicParsing="false" onAction="#startNewExerciseOnAction"  text="start new Exercise" />
+                        <MenuItem id="menuitem" mnemonicParsing="false" onAction="#startNewExerciseOnAction" text="start new Exercise" />
                     </items>
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="Settings">
@@ -54,7 +54,7 @@
             </rowConstraints>
             <children>
                 <Button id="button" fx:id="readyButton" mnemonicParsing="false" onAction="#handleReadyButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="start" GridPane.columnIndex="5" />
-                <Button id="button" fx:id="phaseButton" visible="false"  mnemonicParsing="false" onAction="#handlePhaseButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="Go To Next Phase" GridPane.columnIndex="5" />
+                <Button id="button" fx:id="phaseButton" mnemonicParsing="false" onAction="#handlePhaseButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="Go To Next Phase" visible="false" GridPane.columnIndex="5" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="541.0" text="Press Button to start your excercise " GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             </children>
         </GridPane>
@@ -123,7 +123,7 @@
     <center>
         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <content>
-                <GridPane id="catalogGrid" fx:id="catalogGrid" alignment="CENTER" gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                <GridPane id="catalogGrid" fx:id="catalogGrid" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="10.0" prefWidth="650.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="10.0" prefWidth="10.0" />
