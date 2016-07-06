@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -48,7 +51,7 @@ public class WorkshopControl implements Initializable {
     private TextArea textArea;
     
     @FXML
-    private MenuItem about;
+    private MenuItem about, newExcercise;
     
     @FXML
     private Label timeLabel, phaseLabel;
@@ -58,6 +61,9 @@ public class WorkshopControl implements Initializable {
     
     @FXML
     private Button phaseButton, readyButton;
+    
+    @FXML
+    private PieChart visuellPhase;
 
     
     @FXML 
@@ -70,6 +76,11 @@ public class WorkshopControl implements Initializable {
             System.out.println((exerciseNr));
             setExtensions();
             phase = new Phase();
+            
+            // PieChart
+            this.createPieChart();
+            
+            newExcercise.setDisable(false);
             readyButton.setVisible(false);
             phaseButton.setVisible(true);
         }else{
@@ -109,6 +120,12 @@ public class WorkshopControl implements Initializable {
     /*
     The f*ck was that for ?
     it just f*cks up the grid
+
+    This is Sparta!!!    
+    ... ;)
+    Öffne mal eine Übung und geh dann oben in die Meüleiste unter Datas
+    Einfach mal das Knöpfchen drücken und schon siehste was passiert
+    */
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
         // stop Time and reset
@@ -126,7 +143,7 @@ public class WorkshopControl implements Initializable {
         // setzte richtige Button
         readyButton.setVisible(true);
         phaseButton.setVisible(false);
-    }*/
+    }
     
     void readCatalog()
     {
@@ -223,6 +240,20 @@ public class WorkshopControl implements Initializable {
     }
     
     // Hilfsmethoden
+    
+    // Code zum Teil von http://docs.oracle.com/javafx/2/charts/pie-chart.htm
+    private void createPieChart(){
+        ObservableList<PieChart.Data> pieChartData
+                = FXCollections.observableArrayList(
+                        new PieChart.Data("Make the test pass", 30),
+                        new PieChart.Data("Refactor", 30),
+                        new PieChart.Data("Write a failing test", 30 ));                        
+        visuellPhase.setData(pieChartData);
+        
+        URL stylesheet = WorkshopControl.class.getResource("piechart.css");
+        visuellPhase.getStylesheets().add(stylesheet.toExternalForm());
+    }
+    
     private int getSelectedExercise(){
         for(int i=0; i<checkboxes.size(); i++){
             if(((CheckBox)checkboxes.get(i)).isSelected()) return i;
