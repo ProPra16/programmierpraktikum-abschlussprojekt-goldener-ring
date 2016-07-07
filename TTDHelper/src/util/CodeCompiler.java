@@ -21,15 +21,21 @@ public class CodeCompiler {
             CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);
             JavaStringCompiler currStringCompiler =  CompilerFactory.getCompiler(testCompiler);
             currStringCompiler.compileAndRunTests();
-            currStringCompiler.getTestResult();
             if(currStringCompiler.getCompilerResult().hasCompileErrors() || 
                 currStringCompiler.getTestResult().getNumberOfFailedTests() == 1){
                 return true;
-            };
+            }
         }
-        if(phase.equals("green")){
-            
-        };
+        if(phase.equals("green") || phase.equals("refactor")){
+            CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);
+            JavaStringCompiler currStringCompiler = CompilerFactory.getCompiler(testCompiler);
+            currStringCompiler.compileAndRunTests();
+            if(!currStringCompiler.getCompilerResult().hasCompileErrors()){
+                if (currStringCompiler.getTestResult().getNumberOfFailedTests() == 0){
+                    return true;
+                }
+            }
+        }
         
         
         

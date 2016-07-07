@@ -99,7 +99,6 @@ public class WorkshopControl implements Initializable {
         // code nehmen und checke
         if(CodeCompiler.isCorrect("RomanNumbersTest" ,((TextArea)root.getCenter()).getText(), phase.getState())){
             phase.change();
-            System.out.println("Fail");
             // lade neuen Code für entsprechende Phase
             // evtl. Methode in class Phase
         }
@@ -113,10 +112,15 @@ public class WorkshopControl implements Initializable {
             state = "red";
         }
         
+        /*
+        Methode change gefixt, das Problem war dass alle drei if's durchliefen und hiermit
+        ging man red -> green -> refactor -> red ende von change.
+        */
+        
         public void change(){
-            if(state.equals("red")) state = "green";
-            if(state.equals("green")) state = "refactor";
-            if(state.equals("refactor")) state = "red";
+            if(state.equals("red")){ state = "green"; return; }
+            if(state.equals("green")){ state = "refactor"; return; }
+            if(state.equals("refactor")){ state = "red"; return; }
         }
         
         public String getState(){
