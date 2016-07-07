@@ -89,11 +89,17 @@ public class WorkshopControl implements Initializable {
         //System.out.println("Ready Button pressed");
     }    
     
+    /*
+    WICHTIG!!!!!
+    "RomanNumbersTest ist Hardcoded, Simon wird ihn auf softCoded ändern.
+    */
+    
     @FXML
     protected void handlePhaseButtonOnAction(ActionEvent event){
         // code nehmen und checke
-        if(CodeCompiler.isCorrect(((TextArea)root.getCenter()).getText(), phase.getState())){
+        if(CodeCompiler.isCorrect("RomanNumbersTest" ,((TextArea)root.getCenter()).getText(), phase.getState())){
             phase.change();
+            System.out.println("Fail");
             // lade neuen Code für entsprechende Phase
             // evtl. Methode in class Phase
         }

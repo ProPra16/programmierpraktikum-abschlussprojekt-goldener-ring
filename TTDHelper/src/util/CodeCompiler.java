@@ -5,6 +5,10 @@
  */
 package util;
 
+import vk.core.api.CompilationUnit;
+import vk.core.api.CompilerFactory;
+import vk.core.api.JavaStringCompiler;
+
 /**
  *
  * @author Lars
@@ -12,7 +16,23 @@ package util;
 public class CodeCompiler {
     // soll Code des Users checken
     
-    public static boolean isCorrect(String code, String phase){
+    public static boolean isCorrect(String testClassName, String code, String phase){
+        if(phase.equals("red")){
+            CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);
+            JavaStringCompiler currStringCompiler =  CompilerFactory.getCompiler(testCompiler);
+            currStringCompiler.compileAndRunTests();
+            currStringCompiler.getTestResult();
+            if(currStringCompiler.getCompilerResult().hasCompileErrors() || 
+                currStringCompiler.getTestResult().getNumberOfFailedTests() == 1){
+                return true;
+            };
+        }
+        if(phase.equals("green")){
+            
+        };
+        
+        
+        
         return false;
     }
 }
