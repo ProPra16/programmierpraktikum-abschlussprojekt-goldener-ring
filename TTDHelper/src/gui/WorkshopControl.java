@@ -20,25 +20,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import util.CodeCompiler;
-import util.*;
+import util.Exercise;
 import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
     
     private static WorkshopControl activeObject;
     
-    private static List<Exercise> exercises;
+    private List<Exercise> exercises;
+        
+    private ToggleGroup radioGroup;
     
-    private List<CheckBox> checkboxes;
-    
+
+
     private Timer timer;
     
     private Phase phase;
@@ -99,7 +103,7 @@ public class WorkshopControl implements Initializable {
         // code nehmen und checke
         if(CodeCompiler.isCorrect("RomanNumbersTest" ,((TextArea)root.getCenter()).getText(), phase.getState())){
             phase.change();
-            System.out.println(phase.getState());
+			System.out.println(phase.getState());
             // lade neuen Code für entsprechende Phase
             // evtl. Methode in class Phase
         }
@@ -113,30 +117,27 @@ public class WorkshopControl implements Initializable {
             state = "red";
         }
         
-        /*
-        Methode change gefixt, das Problem war dass alle drei if's durchliefen und hiermit
-        ging man red -> green -> refactor -> red ende von change.
-        */
-        
         public void change(){
-            if(state.equals("red")){ state = "green"; return; }
-            if(state.equals("green")){ state = "refactor"; return; }
-            if(state.equals("refactor")){ state = "red"; return; }
+            switch (state) {
+                case "red":
+                    state = "green";
+                    break;
+                case "green":
+                    state = "refactor";
+                    break;
+                case "refactor":
+                    state = "red";
+                    break;
+                default:
+                    break;
+            }
         }
         
         public String getState(){
             return this.state;
         }
     }
-    /*
-    The f*ck was that for ?
-    it just f*cks up the grid
-
-    This is Sparta!!!    
-    ... ;)
-    Öffne mal eine Übung und geh dann oben in die Meüleiste unter Datas
-    Einfach mal das Knöpfchen drücken und schon siehste was passiert
-    */
+    
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException{
         // stop Time and reset
@@ -160,19 +161,19 @@ public class WorkshopControl implements Initializable {
     {
         
         DOMReader.parseCatalog();
-        /*try
-        {   
-            InputSource is = new InputSource(
-                new InputStreamReader(
-                    new FileInputStream("Katalog.xml") , "UTF-8"
-                )
-            );
-            is.setEncoding("UTF-8");
-            SAXParserFactory.newInstance().
-                    newSAXParser().parse(is, new Sink());
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
-            Logger.getLogger(WorkshopControl.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @FXML
@@ -205,29 +206,30 @@ public class WorkshopControl implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
         WorkshopControl.activeObject = this;
-        WorkshopControl.exercises = new ArrayList();
+        this.exercises = new ArrayList();
+        this.radioGroup = new ToggleGroup();
         this.readCatalog();       
-        int tmp = catalogGrid.getRowConstraints().size();
-        checkboxes = new ArrayList();
-        for(int i=0; i<(tmp-1); i++){
-            CheckBox cb = new CheckBox();
-            cb.setVisible(true);
-            checkboxes.add(cb);
-            GridPane.setRowIndex(cb, i);
-            GridPane.setColumnIndex(cb, catalogGrid.getColumnConstraints().size()-1);
-            catalogGrid.getChildren().add(cb);            
-        }   
+
+
+
+
+
+
+
+
+
+
     }
     
     public static void addExercise(Exercise exercise) 
     {
-        System.out.println(exercise.getName());
-        
-        WorkshopControl.exercises.add(exercise);
+
+
+        WorkshopControl.activeObject.exercises.add(exercise);
         GridPane grid = WorkshopControl.activeObject.catalogGrid;
         GridPane lblGrid = new GridPane();
         lblGrid.setMaxWidth(Double.MAX_VALUE);
-        grid.add(lblGrid, 0, grid.getChildren().size());
+        grid.add(lblGrid, 0, grid.getChildren().size()/2);
         
         lblGrid.add(new Label(exercise.getName()), 0, 0);
         lblGrid.add(new Label(exercise.getDescription()), 0, 1);
@@ -239,6 +241,10 @@ public class WorkshopControl implements Initializable {
         lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN) ? 
                 "False":exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
         lblGrid.add(new Label("Timetrack: " + exercise.getTimetrack()), 1, 1);
+        
+        RadioButton cb = new RadioButton();
+        cb.setToggleGroup(WorkshopControl.activeObject.radioGroup);
+        grid.add(cb, 1, grid.getChildren().size()/2);
     }
     
     private void changeToTest(Exercise exercise) {
@@ -252,7 +258,7 @@ public class WorkshopControl implements Initializable {
     
     // Hilfsmethoden
     
-    // (zur createPieChart Methode) Code zum Teil von http://docs.oracle.com/javafx/2/charts/pie-chart.htm
+    // Code zum Teil von http://docs.oracle.com/javafx/2/charts/pie-chart.htm
     private void createPieChart(){
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -266,17 +272,21 @@ public class WorkshopControl implements Initializable {
     }
     
     private int getSelectedExercise(){
-        for(int i=0; i<checkboxes.size(); i++){
-            if(((CheckBox)checkboxes.get(i)).isSelected()) return i;
-        }
+        RadioButton btn = (RadioButton)radioGroup.getSelectedToggle();
+        if(btn!=null)
+            return GridPane.getRowIndex(btn);
+
+
+
         return -1;
     }
     
     private boolean isExcerciseSelected(){
-        for(int i=0; i<checkboxes.size(); i++){
-            if(((CheckBox)checkboxes.get(i)).isSelected()) return true;
-        }
-        return false;
+        return (RadioButton)radioGroup.getSelectedToggle() != null;
+
+
+
+
     }
     
     private void setExtensions(){
@@ -302,7 +312,7 @@ public class WorkshopControl implements Initializable {
         private final Timeline timeline;
         
         //Konstruktor
-        public Timer() {
+        public Timer(){
             seconds = 0;
             
             timeline = new Timeline(new KeyFrame (Duration.seconds(1), (ActionEvent event) ->{

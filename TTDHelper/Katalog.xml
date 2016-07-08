@@ -20,33 +20,8 @@
             </test>
         </tests>
         <config>
-            <babysteps value="False" />
-            <timetracking value="True" />
-        </config>
-    </exercise>
-    <exercise>
-        <name>Römische Zahlen</name>
-        <description>Konvertiert arabische in römische Zahlen.</description>
-        <classes>
-            <class name="RomanNumberConverter">
-                public class RomanNumberConverter {
-                }
-            </class>
-        </classes>
-        <tests>
-            <test name="RomanNumberConverterTest">
-                import static org.junit.Assert.*;
-                import org.junit.Test;
-                public class RomanNumbersTest {
-                    @Test
-                    public void testSomething() {
-                    }
-                }
-            </test>
-        </tests>
-        <config>
             <babysteps value="True" time="00:02:00" />
-            <timetracking value="False" />
+            <timetracking value="True" />
         </config>
     </exercise>
 </exercises>

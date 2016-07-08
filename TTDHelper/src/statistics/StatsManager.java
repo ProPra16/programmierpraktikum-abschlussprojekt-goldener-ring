@@ -86,7 +86,7 @@ public class StatsManager {
     }
 
     private XYChart.Series getSeries(XYChart.Series series, int index) {
-        for (int i = 0; i < stats[index].size(); i++) {
+        for (int i = 0; i < red.size(); i++) {
             series.getData().add(new XYChart.Data(i, stats[index].get(i)));
         }
         return series;
