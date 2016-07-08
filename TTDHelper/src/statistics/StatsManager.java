@@ -73,10 +73,10 @@ public class StatsManager {
             
             XYChart.Series seriRefactor = new XYChart.Series();
             seriRefactor = getSeries(seriRefactor, 2);
-            seriRed.setName("Phase Refactor");
-            
+            seriRed.setName("Phase Refactor");            
             
             root.getData().addAll(seriRed, seriGreen, seriRefactor);
+            root.setTitle(this.name);
         } else {
             System.out.println("Range Check fail");
         }

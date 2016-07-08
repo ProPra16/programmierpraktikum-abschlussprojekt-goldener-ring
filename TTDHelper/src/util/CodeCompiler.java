@@ -16,6 +16,7 @@ import vk.core.api.JavaStringCompiler;
 public class CodeCompiler {
     // soll Code des Users checken
     
+    // von Lars @Kirill wenn ich einfach eine klammer wegnehme funktioniert das ganze, was es aber  nicht tun sollte
     public static boolean isCorrect(String testClassName, String code, String phase){
         if(phase.equals("red")){
             CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);

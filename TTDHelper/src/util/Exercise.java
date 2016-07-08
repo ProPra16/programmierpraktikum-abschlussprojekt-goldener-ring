@@ -1,6 +1,5 @@
 package util;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +61,7 @@ public class Exercise {
     
     public LocalTime getBabysteps()
     {
-        return this.babysteps;
+        return this.babysteps!=LocalTime.MIN?this.babysteps:null;
     }
     
     public void setBabysteps(LocalTime babysteps)
