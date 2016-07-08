@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import util.CodeCompiler;
-import util.Exercise;
+import util.*;
 import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
@@ -57,7 +57,7 @@ public class WorkshopControl implements Initializable {
     private Label timeLabel, phaseLabel;
     
     @FXML
-    private CheckBox babysteps, attd;
+    private CheckBox babysteps, track;
     
     @FXML
     private Button phaseButton, readyButton;
@@ -99,6 +99,7 @@ public class WorkshopControl implements Initializable {
         // code nehmen und checke
         if(CodeCompiler.isCorrect("RomanNumbersTest" ,((TextArea)root.getCenter()).getText(), phase.getState())){
             phase.change();
+            System.out.println(phase.getState());
             // lade neuen Code für entsprechende Phase
             // evtl. Methode in class Phase
         }
@@ -148,7 +149,7 @@ public class WorkshopControl implements Initializable {
         
         // aktiviere Checkboxen
         babysteps.setDisable(false);
-        attd.setDisable(false);
+        track.setDisable(false);
         
         // setzte richtige Button
         readyButton.setVisible(true);
@@ -251,7 +252,7 @@ public class WorkshopControl implements Initializable {
     
     // Hilfsmethoden
     
-    // Code zum Teil von http://docs.oracle.com/javafx/2/charts/pie-chart.htm
+    // (zur createPieChart Methode) Code zum Teil von http://docs.oracle.com/javafx/2/charts/pie-chart.htm
     private void createPieChart(){
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -288,7 +289,7 @@ public class WorkshopControl implements Initializable {
         
         // deaktiviere Checkboxen
         babysteps.setDisable(true);
-        attd.setDisable(true);
+        track.setDisable(true);
     }
     
     
@@ -301,7 +302,7 @@ public class WorkshopControl implements Initializable {
         private final Timeline timeline;
         
         //Konstruktor
-        public Timer(){
+        public Timer() {
             seconds = 0;
             
             timeline = new Timeline(new KeyFrame (Duration.seconds(1), (ActionEvent event) ->{
