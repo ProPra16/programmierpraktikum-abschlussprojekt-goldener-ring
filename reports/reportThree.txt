@@ -1,0 +1,15 @@
+Zusammenfassung über geschriebenen Code:
+
+- Die GUI ist bis auf einige KLeinigkeiten komplett fertig
+- Der Katalog wird mit den zu verfügung stehenden Aufgaben geladen
+- CodeCompiler besitzt nun eine Methode zu prüfen des geschriebenen Codes (vom User) und gibt entsprechend der aktuellen Phase 
+  ein true zurück, wenn alle Bedingungen erfüllt sind
+- Der Katalog hat nun eine andere Form bekommen, es gibt nun keinen WSCButton mehr 
+
+Zusammenfassung vom Gespräch:
+
+--> Planung: 
+
+- komplettes Testen der einzelnen Phasen und somit einer gesamten Übung
+- Konflikt der zu beheben gilt: Darf der User bestimmen ob Babysteps an sind oder nicht
+- evtl. Optimierung der GUI
