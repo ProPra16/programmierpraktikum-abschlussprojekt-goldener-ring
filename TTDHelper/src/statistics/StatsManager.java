@@ -119,10 +119,10 @@ public class StatsManager {
 
         //Konstruktor
         public Timer() {
+            seconds = 0;
         }
 
-        public void start() {
-            seconds = 0;
+        public void start() {            
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;
                 time = seconds / 60 + ":" + seconds % 60;

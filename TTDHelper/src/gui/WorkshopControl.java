@@ -21,12 +21,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import statistics.StatsManager;
@@ -88,7 +88,7 @@ public class WorkshopControl implements Initializable {
 
             // babysteps
             // sehr unschöne if abfrage...
-            if (exercises.get(getSelectedExercise()).getBabysteps().toString().equals("00:02")) {
+            if (exercises.get(getSelectedExercise()).getBabysteps() != null) {
                 setBabysteps();
             }
 
@@ -99,7 +99,7 @@ public class WorkshopControl implements Initializable {
 
             // PieChart
             this.createPieChart();
-
+            
             newExcercise.setDisable(false);
             readyButton.setVisible(false);
             phaseButton.setVisible(true);
@@ -123,11 +123,11 @@ public class WorkshopControl implements Initializable {
 
                 // ändere Phase
                 phase.change();
-                //System.out.println(phase.getState());
+                System.out.println(phase.getState());
 
                 // babysteps
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getBabysteps().toString().equals("00:02")) {
+                if (exercises.get(getSelectedExercise()).getBabysteps() != null) {
                     timer.reset();
                 }
 
@@ -138,6 +138,9 @@ public class WorkshopControl implements Initializable {
                     statsmanager.stopTimer(false);
                 }
 
+                String code = textArea.getText();
+                textArea.clear();
+                
                 // lade neuen Code für entsprechende Phase
                 // evtl. Methode in class Phase
             } else {
@@ -160,10 +163,24 @@ public class WorkshopControl implements Initializable {
         }
         timeLabel.setText("0:0");
 
-        // load scroll pane with catalog
-        ScrollPane center = FXMLLoader.load(WorkshopControl.class.getResource("scrollPaneKatalog.fxml"));
-        root.setCenter(center);
+        // load scroll pane with catalog       
+        //ScrollPane center = FXMLLoader.load(WorkshopControl.class.getResource("scrollPane.fxml"));
+        //root.setCenter(center);
+        
+        Pane pane = FXMLLoader.load(WorkshopControl.class.getResource("workshop.fxml"));
+        root.getScene().setRoot(pane);
+        
+        // Import von Style
+        URL stylesheet = WorkshopControl.class.getResource("workshop.css");
+        pane.getStylesheets().add(stylesheet.toExternalForm());
+        // Scene auf Stage bringen
+        
+        
+        
 
+        //
+        visuellPhase.getData().clear();
+        
         // aktiviere Checkboxen
         babysteps.setDisable(false);
         track.setDisable(false);
@@ -183,7 +200,7 @@ public class WorkshopControl implements Initializable {
         this.exercises = new ArrayList();
         this.radioGroup = new ToggleGroup();
         this.readCatalog();
-
+        
     }
 
     public static void addExercise(Exercise exercise) {
@@ -226,7 +243,7 @@ public class WorkshopControl implements Initializable {
                 = FXCollections.observableArrayList(
                         new PieChart.Data("Make the test pass", 30),
                         new PieChart.Data("Refactor", 30),
-                        new PieChart.Data("Write a failing test", 30));
+                        new PieChart.Data("Write a failing test", 30));        
         visuellPhase.setData(pieChartData);
 
         URL stylesheet = WorkshopControl.class.getResource("piechart.css");
