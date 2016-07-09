@@ -50,17 +50,14 @@ public class WorkshopControl implements Initializable {
 
     @FXML
     private BorderPane root;
-
     @FXML
     private GridPane catalogGrid;
+    @FXML
     private TextArea textArea;
-
     @FXML
     private MenuItem about, newExcercise;
-
     @FXML
     private Label timeLabel, phaseLabel;
-
     @FXML
     private CheckBox babysteps, track;
 
@@ -121,9 +118,31 @@ public class WorkshopControl implements Initializable {
             boolean fill = false;
             if (!fill) {
 
-                // ändere Phase
+                // Ändere Phase
+                //Sichern des Codes fehlt noch von Tests und normaler Klasse
                 phase.change();
                 System.out.println(phase.getState());
+                String code = textArea.getText();
+                textArea.clear();
+                int exerciseNr = this.getSelectedExercise();
+                switch(phase.getState()) {
+                    case "red":
+                        exercises.get(exerciseNr).getTests().values().stream().forEach((ls) -> {
+                            this.textArea.appendText(String.join(System.lineSeparator(), ls));
+                        });
+                        break;
+                    case "green":
+                        exercises.get(exerciseNr).getClasses().values().stream().forEach((ls) -> {
+                            this.textArea.appendText(String.join(System.lineSeparator(), ls));
+                        });
+                        break;
+                    case "refactor":
+                        exercises.get(exerciseNr).getClasses().values().stream().forEach((ls) -> {
+                            this.textArea.appendText(String.join(System.lineSeparator(), ls));
+                        });
+                        break;
+                }
+                
 
                 // babysteps
                 // if abfrage unschön...
@@ -137,9 +156,7 @@ public class WorkshopControl implements Initializable {
                 if (exercises.get(getSelectedExercise()).getTimetrack()) {
                     statsmanager.stopTimer(false);
                 }
-
-                String code = textArea.getText();
-                textArea.clear();
+                
                 
                 // lade neuen Code für entsprechende Phase
                 // evtl. Methode in class Phase
@@ -286,12 +303,15 @@ public class WorkshopControl implements Initializable {
             switch (state) {
                 case "red":
                     state = "green";
+                    phaseLabel.setText("Make the Test pass");
                     break;
                 case "green":
                     state = "refactor";
+                    phaseLabel.setText("Refactor");
                     break;
                 case "refactor":
                     state = "red";
+                    phaseLabel.setText("Write a failing Test");
                     break;
                 default:
                     break;
