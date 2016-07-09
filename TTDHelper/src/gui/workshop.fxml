@@ -55,6 +55,7 @@
             </rowConstraints>
             <children>
                 <Button id="button" fx:id="readyButton" mnemonicParsing="false" onAction="#handleReadyButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="start" GridPane.columnIndex="5" />
+                <Button id="button" fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonOnAction" prefHeight="25.0" prefWidth="122.0" text="Go Back" visible="false" GridPane.columnIndex="3" />
                 <Button id="button" fx:id="phaseButton" mnemonicParsing="false" onAction="#handlePhaseButtonOnAction" prefHeight="25.0" prefWidth="120.0" text="Go To Next Phase" visible="false" GridPane.columnIndex="5" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="541.0" text="Press Button to start your excercise " GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             </children>

@@ -60,13 +60,10 @@ public class WorkshopControl implements Initializable {
     private Label timeLabel, phaseLabel;
     @FXML
     private CheckBox babysteps, track;
-
     @FXML
-    private Button phaseButton, readyButton;
-
+    private Button phaseButton, readyButton, backButton;
     @FXML
     private PieChart visuellPhase;
-
     @FXML
     protected void handleReadyButtonOnAction(ActionEvent event) {
         if (isExcerciseSelected()) {
@@ -76,8 +73,6 @@ public class WorkshopControl implements Initializable {
             } else {
                 this.changeToTest(exercises.get(exerciseNr));
             }
-            //System.out.println(exercises.get(exerciseNr).getName());
-            //System.out.println((exerciseNr));
 
             // Einstellungen
             phaseLabel.setText("Writing a failing Test");
@@ -97,15 +92,20 @@ public class WorkshopControl implements Initializable {
             // PieChart
             this.createPieChart();
             
+            backButton.setVisible(true);
             newExcercise.setDisable(false);
             readyButton.setVisible(false);
             phaseButton.setVisible(true);
         } else {
             System.out.println("No Exercise chosen");
         }
-        //System.out.println("Ready Button pressed");
     }
 
+    @FXML
+    private void handleBackButtonOnAction(ActionEvent event){
+        goBack();
+    }
+    
     /*
     WICHTIG!!!!!
     "RomanNumbersTest ist Hardcoded, Simon wird ihn auf softCoded ändern.
@@ -289,6 +289,12 @@ public class WorkshopControl implements Initializable {
         statsmanager = new StatsManager();
         statsmanager.startTimer(phase.getState(), exercises.get(getSelectedExercise()).getName());
     }
+    
+    public void goBack(){
+        switch(phase.getState()){
+            case "green": 
+        }
+    }
 
     // inner class Phase
     private class Phase {
@@ -330,15 +336,27 @@ public class WorkshopControl implements Initializable {
         private int seconds;
         private String time;
         private final Timeline timeline;
+        private String maxTime;
 
         //Konstruktor
         public Timer() {
             seconds = 0;
-
+            String tmp = exercises.get(getSelectedExercise()).getBabysteps().toString();
+            System.out.println(tmp);
+            maxTime = "";
+            for (int i = tmp.length()-1; i >= 0; i--) {
+                maxTime += tmp.charAt(i);
+            }
+            System.out.println(maxTime);
+            
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;
                 time = seconds / 60 + ":" + seconds % 60;
                 timeLabel.setText(time);
+                if(time.equals(maxTime)){
+                    reset();
+                    goBack();
+                }
             }));
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
