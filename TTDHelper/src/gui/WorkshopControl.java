@@ -35,7 +35,9 @@ import util.Exercise;
 import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
-
+    private boolean first = true;
+    private String code = "";
+    
     private static WorkshopControl activeObject;
 
     private List<Exercise> exercises;
@@ -120,10 +122,11 @@ public class WorkshopControl implements Initializable {
 
                 // Ändere Phase
                 //Sichern des Codes fehlt noch von Tests und normaler Klasse
-                phase.change();
+                phase.changeForward();
                 System.out.println(phase.getState());
-                String code = textArea.getText();
+                code = textArea.getText();
                 textArea.clear();
+                first = false;
                 int exerciseNr = this.getSelectedExercise();
                 switch(phase.getState()) {
                     case "red":
@@ -275,24 +278,35 @@ public class WorkshopControl implements Initializable {
 
         return -1;
     }
-
     private boolean isExcerciseSelected() {
         return (RadioButton) radioGroup.getSelectedToggle() != null;
 
     }
-
     private void setBabysteps() {
         timer = new Timer();
     }
-
     private void setTracking() {
         statsmanager = new StatsManager();
         statsmanager.startTimer(phase.getState(), exercises.get(getSelectedExercise()).getName());
     }
-    
     public void goBack(){
-        switch(phase.getState()){
-            case "green": 
+        if (first) {
+
+        } else {
+            int exerciseNr = this.getSelectedExercise();
+            
+            switch (phase.getState()) {
+                case "green":
+                    phase.changeBackward();
+                    textArea.clear();
+                    textArea.setText(code);
+                    break;
+                case "red":
+                    phase.changeBackward();
+                    textArea.clear();
+                    textArea.setText(code);
+                    break;
+            }
         }
     }
 
@@ -305,7 +319,7 @@ public class WorkshopControl implements Initializable {
             state = "red";
         }
 
-        public void change() {
+        public void changeForward() {
             switch (state) {
                 case "red":
                     state = "green";
@@ -316,6 +330,21 @@ public class WorkshopControl implements Initializable {
                     phaseLabel.setText("Refactor");
                     break;
                 case "refactor":
+                    state = "red";
+                    phaseLabel.setText("Write a failing Test");
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        public void changeBackward() {
+            switch (state) {
+                case "red":
+                    state = "refactor";
+                    phaseLabel.setText("Refactor");
+                    break;
+                case "green":
                     state = "red";
                     phaseLabel.setText("Write a failing Test");
                     break;
@@ -341,19 +370,13 @@ public class WorkshopControl implements Initializable {
         //Konstruktor
         public Timer() {
             seconds = 0;
-            String tmp = exercises.get(getSelectedExercise()).getBabysteps().toString();
-            System.out.println(tmp);
-            maxTime = "";
-            for (int i = tmp.length()-1; i >= 0; i--) {
-                maxTime += tmp.charAt(i);
-            }
             System.out.println(maxTime);
             
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;
                 time = seconds / 60 + ":" + seconds % 60;
                 timeLabel.setText(time);
-                if(time.equals(maxTime)){
+                if(time.equals("0:10")){
                     reset();
                     goBack();
                 }
@@ -365,7 +388,6 @@ public class WorkshopControl implements Initializable {
         public void stop() {
             timeline.stop();
         }
-
         public void reset() {
             seconds = 0;
         }
@@ -374,7 +396,6 @@ public class WorkshopControl implements Initializable {
         public int getSeconds() {
             return seconds;
         }
-
         public String getTime() {
             return time;
         }
