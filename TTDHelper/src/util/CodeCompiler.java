@@ -25,7 +25,7 @@ public class CodeCompiler {
      */
     
     public static boolean isCorrect(String testClassName, String code, String phase){
-        if(phase.equals("red")){
+        if(phase!= null && phase.equals("red")){
             CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);
             JavaStringCompiler currStringCompiler =  CompilerFactory.getCompiler(testCompiler);
             currStringCompiler.compileAndRunTests();
@@ -34,7 +34,7 @@ public class CodeCompiler {
                 return true;
             }
         }
-        if(phase.equals("green") || phase.equals("refactor")){
+        if(phase!= null && (phase.equals("green") || phase.equals("refactor"))){
             CompilationUnit testCompiler = new CompilationUnit(testClassName, code, true);
             JavaStringCompiler currStringCompiler = CompilerFactory.getCompiler(testCompiler);
             currStringCompiler.compileAndRunTests();
