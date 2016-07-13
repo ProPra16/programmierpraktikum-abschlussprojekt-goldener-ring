@@ -59,7 +59,7 @@ public class WorkshopControl implements Initializable {
     @FXML
     private CheckBox babysteps, track;
     @FXML
-    private Button phaseButton, readyButton, backButton;
+    private Button phaseButton, readyButton, backButton, dark, light;
     @FXML
     private PieChart visuellPhase;
     @FXML
@@ -430,6 +430,18 @@ public class WorkshopControl implements Initializable {
     //Just a little Idea and not finished, feel free to delete.
     
     @FXML
+    protected void lightOnAction(){
+        URL stylesheet = getClass().getResource("workshopLight.css");
+        this.root.getStylesheets().add(stylesheet.toExternalForm());
+    }
+        
+    @FXML
+    protected void darkOnAction(){
+        URL stylesheet = getClass().getResource("workshopDark.css");
+        this.root.getStylesheets().add(stylesheet.toExternalForm());
+    }
+    
+    @FXML
     protected void openOptions() throws IOException{
         Stage optionsStage = new Stage();
         optionsStage.setTitle("Optios");        
@@ -446,7 +458,6 @@ public class WorkshopControl implements Initializable {
         scene = new Scene(oproot);
         optionsStage.setScene(scene);
         optionsStage.show();
-
     }
     
 }

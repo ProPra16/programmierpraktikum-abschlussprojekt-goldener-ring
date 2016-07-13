@@ -33,7 +33,7 @@ public class Main extends Application {
         Pane root = FXMLLoader.load(WorkshopControl.class.getResource("workshop.fxml"));
         
         // Import von Style
-        URL stylesheet = WorkshopControl.class.getResource("workshop.css");
+        URL stylesheet = WorkshopControl.class.getResource("workshopDark.css");
         root.getStylesheets().add(stylesheet.toExternalForm());
 
         // Scene auf Stage bringen

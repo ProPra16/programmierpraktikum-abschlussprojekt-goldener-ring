@@ -1,0 +1,61 @@
+#borderpane{
+    -fx-background: #FdF5E6;    
+}
+
+#menubar{
+    -fx-background-color: #FdF5E7;
+}
+
+#menubar .label{
+    -fx-text-fill: whitesmoke;
+}
+
+#menu{
+    
+}
+
+#menu:hover, menu:showing{
+    -fx-text-fill: whitesmoke;
+    -fx-background-color: white;
+}
+
+#menuitem:hover, menuitem:showing{
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+
+#menuitem .label{
+    /*-fx-background-color: #2a2929;*/
+    -fx-text-fill: black;
+}
+
+#button{
+    -fx-background-color: #FdF5F6;
+    -fx-text-fill: whitesmoke;
+}
+
+#label{
+    -fx-text-fill: whitesmoke;
+    -fx-font-size: 20;    
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+}
+
+#gridpane{
+    -fx-background-color: #FdF5F6;
+}
+
+#circle{
+    -fx-fill: #cc0033;
+}
+
+#textfield{
+    -fx-background-color: #FdF5F6;
+}
+
+#catalogGrid{
+    /*-fx-padding: 25; Whoever the f*ck wrote that shall rot in hell */
+    -fx-padding: 15;
+    -fx-hgap: 10;
+    -fx-vgap: 15;
+}
