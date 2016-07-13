@@ -40,12 +40,26 @@ public class StatsManager {
     }
 
     // nur aufrufen, wenn eine neue Aufgabe beginnt
+    /**
+     * Starts timer. Phase String is converted to int and set to Index.
+     * Name set to name of current excersise.
+     * 
+     * @param phase name of Phase
+     * @param nameOfExcercise 
+     */
+    
+    
     public void startTimer(String phase, String nameOfExcercise) {
         timer.start();
         this.setIndex(phase);
         this.name = nameOfExcercise;
     }
 
+    /**
+     * Stops timer if completey is true, else creates splits and continues counting.
+     * @param completly 
+     */
+    
     public void stopTimer(boolean completly) {
         timer.stop();
         stats[index].add(timer.getTime());
@@ -55,13 +69,26 @@ public class StatsManager {
         }
     }
 
+    /**
+     * Sets timer back to zero.
+     */
+    
     public void resetTimer() {
         timer.reset();
     }
+    
 
     // Verweis auf Workshop Control createPieChart Methode 
+    
+    /**
+     * Creates Linechart for Phases, using linechart.fxml.
+     * 
+     * @return root LineChart
+     * @throws IOException 
+     */
+    
     public LineChart getGui() throws IOException {
-        LineChart root = FXMLLoader.load(getClass().getResource("linechart.fxml"));        
+        LineChart root = FXMLLoader.load(getClass().getResource("linechart.fxml"));   
         if (red.size() == green.size() && green.size() == refactor.size()) {
             XYChart.Series seriRed = new XYChart.Series();
             seriRed = getSeries(seriRed, 0);

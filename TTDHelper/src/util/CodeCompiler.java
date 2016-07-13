@@ -18,6 +18,8 @@ public class CodeCompiler {
     
     // von Lars @Kirill wenn ich einfach eine klammer wegnehme funktioniert das ganze, was es aber  nicht tun sollte
     /**
+     * Tests user written test and checks if test matches the requirements of the current phase. 
+     * 
      * @param testClassName
      * @param code
      * @param phase

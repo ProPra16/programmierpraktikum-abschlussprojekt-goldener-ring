@@ -25,114 +25,67 @@ public class Exercise {
         this.timetrack = false;
     }
     
-    
     /**
-     * @return String
+     * Getters and Setters only. 
      */
+    
     
     public String getName() {
         return name;
     }
 
-    /**
-     * 
-     * @param name 
-     */
     
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * 
-     * @return String
-     */
     
     public String getDescription() {
         return description;
     }
 
-    /**
-     * 
-     * @param description 
-     */
     
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     * 
-     * @return classes
-     */
     
     public HashMap<String,List<String>> getClasses() {
         return classes;
     }
 
-    /**
-     * 
-     * @param name
-     * @param lines 
-     */
     
     public void addClass(String name, List<String> lines) {
         this.classes.put(name, lines);
     }
 
-    /**
-     * 
-     * @return tests
-     */
     
     public HashMap<String,List<String>> getTests() {
         return tests;
     }
-
-    /**
-     * 
-     * @param name
-     * @param lines 
-     */
     
     public void addTest(String name, List<String> lines) {
         this.tests.put(name, lines);
     }
     
-    /**
-     * 
-     * @return LocalTime 
-     */
     
     public LocalTime getBabysteps()
     {
         return this.babysteps!=LocalTime.MIN?this.babysteps:null;
     }
-    
-    /**
-     * 
-     * @param babysteps 
-     */
+
     
     public void setBabysteps(LocalTime babysteps)
     {
         this.babysteps = babysteps;
     }
-    
-    /**
-     * 
-     * @return boolean
-     */
-    
+        
     public boolean getTimetrack()
     {
         return this.timetrack;
     }
     
-    /**
-     * 
-     * @param timetrack 
-     */
+
     
     public void setTimetrack(boolean timetrack)
     {
