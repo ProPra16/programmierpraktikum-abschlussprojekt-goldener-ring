@@ -7,7 +7,7 @@
 }
 
 #menubar .label{
-    -fx-text-fill: whitesmoke;
+    -fx-text-fill: black;
 }
 
 #menu{
@@ -15,7 +15,7 @@
 }
 
 #menu:hover, menu:showing{
-    -fx-text-fill: whitesmoke;
+    -fx-text-fill: black;
     -fx-background-color: white;
 }
 
@@ -29,20 +29,19 @@
     -fx-text-fill: black;
 }
 
-#button{
-    -fx-background-color: #FdF5F6;
-    -fx-text-fill: whitesmoke;
+#button{    
+    -fx-text-fill: black;
 }
 
 #label{
-    -fx-text-fill: whitesmoke;
+    -fx-text-fill: black;
     -fx-font-size: 20;    
     -fx-font-weight: bold;
     -fx-font-family: Arial;
 }
 
 #gridpane{
-    -fx-background-color: #FdF5F6;
+    -fx-background-color: #FdF5E7;
 }
 
 #circle{
@@ -50,7 +49,7 @@
 }
 
 #textfield{
-    -fx-background-color: #FdF5F6;
+    -fx-background-color: #FdF5E7;
 }
 
 #catalogGrid{

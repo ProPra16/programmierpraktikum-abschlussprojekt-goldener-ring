@@ -18,7 +18,7 @@
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="Settings">
                     <items>
-                        <MenuItem id="menuitem" fx:id="options" mnemonicParsing="false" text="View" onAction="#openOptions"/>
+                        <MenuItem id="menuitem" fx:id="view" mnemonicParsing="false" text="View" onAction="#handleViewMenuOnAction"/>
                     </items>
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="About">

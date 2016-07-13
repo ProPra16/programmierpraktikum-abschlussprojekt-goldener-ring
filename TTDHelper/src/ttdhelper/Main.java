@@ -35,6 +35,7 @@ public class Main extends Application {
         // Import von Style
         URL stylesheet = WorkshopControl.class.getResource("workshopDark.css");
         root.getStylesheets().add(stylesheet.toExternalForm());
+        
 
         // Scene auf Stage bringen
         scene = new Scene(root);

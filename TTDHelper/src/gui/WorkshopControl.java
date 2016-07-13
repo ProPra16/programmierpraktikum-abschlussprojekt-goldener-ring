@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -22,6 +23,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -54,7 +56,7 @@ public class WorkshopControl implements Initializable {
     @FXML
     private TextArea textArea;
     @FXML
-    private MenuItem about, newExcercise, options;
+    private MenuItem about, newExcercise, view;
     @FXML
     private Label timeLabel, phaseLabel;
     @FXML
@@ -439,7 +441,7 @@ public class WorkshopControl implements Initializable {
         rootTmp.setCenter(centerLabel);
 
         // Import von Styles
-        URL stylesheet = WorkshopControl.class.getResource("about.css");
+        URL stylesheet = WorkshopControl.class.getResource("menu.css");
         rootTmp.getStylesheets().add(stylesheet.toExternalForm());
 
         //anzeigen lassen
@@ -452,34 +454,47 @@ public class WorkshopControl implements Initializable {
 
     //Just a little Idea and not finished, feel free to delete.
     @FXML
-    protected void openOptions() throws IOException {
+    protected void handleViewMenuOnAction() throws IOException {
         Stage optionsStage = new Stage();
         optionsStage.setTitle("Optios");
         optionsStage.centerOnScreen();
 
-        Scene scene;
-        Pane oproot = FXMLLoader.load(getClass().getResource("options.fxml"));
+        Button lightButton = new Button("Light");
+        Button darkButton = new Button("Dark");
+
+        lightButton.setId("button");
+        darkButton.setId("button");
+
+        lightButton.setPrefSize(114, 33);
+        darkButton.setPrefSize(114, 33);
+
+        lightButton.setLayoutX(168);
+        lightButton.setLayoutY(158);
+        darkButton.setLayoutX(331);
+        darkButton.setLayoutY(158);
+
+        AnchorPane oproot = new AnchorPane(lightButton, darkButton);
+        oproot.setId("anchorpane");
+        oproot.setPrefSize(600.0, 400.0);
 
         // Import von Style
         URL stylesheet = getClass().getResource("menu.css");
         oproot.getStylesheets().add(stylesheet.toExternalForm());
 
+        // buttons on Action
+        darkButton.setOnAction((ActionEvent event) -> {            
+            root.getStylesheets().clear();
+            root.getStylesheets().add(WorkshopControl.class.getResource("workshopDark.css").toExternalForm());
+        });
+        
+        lightButton.setOnAction((ActionEvent event) -> {
+            root.getStylesheets().clear();
+            root.getStylesheets().add(WorkshopControl.class.getResource("workshopLight.css").toExternalForm());
+        });
+
         // Scene auf Stage bringen
-        scene = new Scene(oproot);
+        Scene scene = new Scene(oproot);
         optionsStage.setScene(scene);
         optionsStage.show();
-
-    }
-
-    @FXML
-    protected void lightOnAction() {
-        URL stylesheet = getClass().getResource("workshopLight.css");
-        this.root.getStylesheets().add(stylesheet.toExternalForm());
-    }
-
-    @FXML
-    protected void darkOnAction() {
-        URL stylesheet = getClass().getResource("workshopDark.css");
-        this.root.getStylesheets().add(stylesheet.toExternalForm());
     }
 }
