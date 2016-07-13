@@ -27,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import statistics.StatsManager;
@@ -39,15 +40,10 @@ public class WorkshopControl implements Initializable {
     private String code = "";
     
     private static WorkshopControl activeObject;
-
     private List<Exercise> exercises;
-
     private ToggleGroup radioGroup;
-
     private Timer timer;
-
     private Phase phase;
-
     private StatsManager statsmanager;
 
     @FXML
@@ -82,7 +78,7 @@ public class WorkshopControl implements Initializable {
 
             // babysteps
             // sehr unschöne if abfrage...
-            if (exercises.get(getSelectedExercise()).getBabysteps() != null) {
+            if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
                 setBabysteps();
             }
 
@@ -149,7 +145,7 @@ public class WorkshopControl implements Initializable {
 
                 // babysteps
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getBabysteps() != null) {
+                if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
                     timer.reset();
                 }
 
@@ -238,8 +234,9 @@ public class WorkshopControl implements Initializable {
         column.setPercentWidth(70);
         lblGrid.getColumnConstraints().add(column);
 
-        lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN)
-                ? "False" : exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
+       // lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN)
+       //         ? "False" : exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
+        lblGrid.add(new Label("Babysteps: " + exercise.getBabysteps()+"s"), 1, 0);
         lblGrid.add(new Label("Timetrack: " + exercise.getTimetrack()), 1, 1);
 
         RadioButton cb = new RadioButton();
@@ -293,8 +290,6 @@ public class WorkshopControl implements Initializable {
         if (first) {
 
         } else {
-            int exerciseNr = this.getSelectedExercise();
-            
             switch (phase.getState()) {
                 case "green":
                     phase.changeBackward();
@@ -308,6 +303,10 @@ public class WorkshopControl implements Initializable {
                     break;
             }
         }
+    }
+    public Exercise getSelExercise(){
+        int exerciseNr = this.getSelectedExercise();
+        return exercises.get(exerciseNr);
     }
 
     // inner class Phase
@@ -337,7 +336,6 @@ public class WorkshopControl implements Initializable {
                     break;
             }
         }
-        
         public void changeBackward() {
             switch (state) {
                 case "red":
@@ -371,12 +369,13 @@ public class WorkshopControl implements Initializable {
         public Timer() {
             seconds = 0;
             System.out.println(maxTime);
+            Exercise current = getSelExercise();
             
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;
                 time = seconds / 60 + ":" + seconds % 60;
                 timeLabel.setText(time);
-                if(time.equals("0:10")){
+                if(seconds == current.getBabysteps() && !phase.getState().equals("reafctor")){
                     reset();
                     goBack();
                 }
@@ -417,7 +416,7 @@ public class WorkshopControl implements Initializable {
         rootTmp.setCenter(centerLabel);
 
         // Import von Styles
-        URL stylesheet = WorkshopControl.class.getResource("menu.css");
+        URL stylesheet = WorkshopControl.class.getResource("about.css");
         rootTmp.getStylesheets().add(stylesheet.toExternalForm());
 
         //anzeigen lassen

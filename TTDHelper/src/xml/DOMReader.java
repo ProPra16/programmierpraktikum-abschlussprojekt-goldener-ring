@@ -103,7 +103,7 @@ public class DOMReader {
                                     {
                                         if("True".equals(cfCNode.getAttributes().getNamedItem("value").getNodeValue()))
                                             exercise.setBabysteps(
-                                                    LocalTime.parse(cfCNode.getAttributes().getNamedItem("time").getNodeValue()));
+                                                    Integer.parseInt(cfCNode.getAttributes().getNamedItem("time").getNodeValue()));
                                     } else if(cfCNode.getNodeName().equals("timetracking"))
                                         exercise.setTimetrack(Boolean.parseBoolean(cfCNode.getAttributes().getNamedItem("value").getNodeValue()));
                                 }

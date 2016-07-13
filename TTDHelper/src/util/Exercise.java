@@ -13,7 +13,7 @@ public class Exercise {
     private String description;
     private final HashMap<String,List<String>> classes;
     private final HashMap<String,List<String>> tests;
-    private LocalTime babysteps;
+    private int babystepsSec;
     private boolean timetrack;
 
     public Exercise() {
@@ -21,7 +21,7 @@ public class Exercise {
         this.description = "";
         this.classes = new HashMap();
         this.tests = new HashMap();
-        this.babysteps = LocalTime.MIN;
+        this.babystepsSec = 0;
         this.timetrack = false;
     }
     
@@ -69,15 +69,15 @@ public class Exercise {
     }
     
     
-    public LocalTime getBabysteps()
+    public int getBabysteps()
     {
-        return this.babysteps!=LocalTime.MIN?this.babysteps:null;
+        return babystepsSec;
     }
 
     
-    public void setBabysteps(LocalTime babysteps)
+    public void setBabysteps(int babysteps)
     {
-        this.babysteps = babysteps;
+        this.babystepsSec = babysteps;
     }
         
     public boolean getTimetrack()
