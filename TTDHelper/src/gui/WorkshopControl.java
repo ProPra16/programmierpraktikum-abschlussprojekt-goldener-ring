@@ -27,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import statistics.StatsManager;
@@ -57,7 +58,7 @@ public class WorkshopControl implements Initializable {
     @FXML
     private TextArea textArea;
     @FXML
-    private MenuItem about, newExcercise;
+    private MenuItem about, newExcercise, options;
     @FXML
     private Label timeLabel, phaseLabel;
     @FXML
@@ -427,4 +428,28 @@ public class WorkshopControl implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
+    
+    //Just a little Idea and not finished, feel free to delete.
+    
+    @FXML
+    public void openOptions() throws IOException{
+        Stage optionsStage = new Stage();
+        optionsStage.setTitle("Optios");
+        optionsStage.setScene(new Scene(new StackPane()));
+        optionsStage.centerOnScreen();       
+        
+        Scene scene;
+        Pane oproot = FXMLLoader.load(WorkshopControl.class.getResource("options.fxml"));
+   
+        // Import von Style
+        URL stylesheet = WorkshopControl.class.getResource("workshop.css");
+        oproot.getStylesheets().add(stylesheet.toExternalForm());
+
+        // Scene auf Stage bringen
+        scene = new Scene(oproot);
+        optionsStage.setScene(scene);
+        optionsStage.show();
+
+    }
+    
 }
