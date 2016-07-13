@@ -24,4 +24,55 @@
             <timetracking value="True" />
         </config>
     </exercise>
+    <exercise>
+        <name>Fakultät I</name>
+        <description>Iterative umsetzung der Fakultät. </description>
+        <classes>
+            <class name="FacultyIteration">
+                public class FacultyIteration {
+                }
+            </class>
+        </classes>
+        <tests>
+            <test name="FacultyIterationTest">
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class FacultyIterationTest {
+                    @Test
+                    public void testSomething() {
+                    }
+                }
+            </test>
+        </tests>
+        <config>
+            <babysteps value="True" time="00:02:00" />
+            <timetracking value="True" />
+        </config>
+    </exercise>
+    <exercise>
+        <name>Fakultät II</name>
+        <description>Rekursive Umsetzung der Fakultät.</description>
+        <classes>
+            <class name="FacultyRecursion">
+                public class FacultyRecursion {
+                }
+            </class>
+        </classes>
+        <tests>
+            <test name="FacultyRecursionTest">
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class FacultyRecursionTest {
+                    @Test
+                    public void testSomething() {
+                    }
+                }
+            </test>
+        </tests>
+        <config>
+            <babysteps value="True" time="00:02:00" />
+            <timetracking value="True" />
+        </config>
+    </exercise>
+    
 </exercises>
