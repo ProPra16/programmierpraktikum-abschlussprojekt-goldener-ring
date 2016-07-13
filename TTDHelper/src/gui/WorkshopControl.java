@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,7 +26,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import statistics.StatsManager;
@@ -36,9 +34,12 @@ import util.Exercise;
 import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
+
     private boolean first = true;
     private String code = "";
-    
+    private String testCode = "";
+    private String classCode = "";
+
     private static WorkshopControl activeObject;
     private List<Exercise> exercises;
     private ToggleGroup radioGroup;
@@ -62,6 +63,7 @@ public class WorkshopControl implements Initializable {
     private Button phaseButton, readyButton, backButton, dark, light;
     @FXML
     private PieChart visuellPhase;
+
     @FXML
     protected void handleReadyButtonOnAction(ActionEvent event) {
         if (isExcerciseSelected()) {
@@ -71,25 +73,29 @@ public class WorkshopControl implements Initializable {
             } else {
                 this.changeToTest(exercises.get(exerciseNr));
             }
-
             // Einstellungen
             phaseLabel.setText("Writing a failing Test");
             phase = new Phase();
+
+            if (phase.getState().equals("red")) {
+                System.out.print("TextCode Sichern");
+                testCode = textArea.getText();
+            } else {
+                classCode = textArea.getText();
+            }
 
             // babysteps
             // sehr unschöne if abfrage...
             if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
                 setBabysteps();
             }
-
             // tracking
             if (exercises.get(getSelectedExercise()).getTimetrack()) {
                 setTracking();
             }
-
             // PieChart
             this.createPieChart();
-            
+
             backButton.setVisible(true);
             newExcercise.setDisable(false);
             readyButton.setVisible(false);
@@ -100,31 +106,37 @@ public class WorkshopControl implements Initializable {
     }
 
     @FXML
-    protected void handleBackButtonOnAction(ActionEvent event){
+    protected void handleBackButtonOnAction(ActionEvent event) {
         goBack();
     }
-    
+
     /*
     WICHTIG!!!!!
     "RomanNumbersTest ist Hardcoded, Simon wird ihn auf softCoded ändern.
      */
     @FXML
     protected void handlePhaseButtonOnAction(ActionEvent event) {
+        if (phase.getState().equals("red")) {
+            System.out.print("TextCode Sichern");
+            testCode = textArea.getText();
+        } else {
+            classCode = textArea.getText();
+        }
         // code nehmen und checke
         if (CodeCompiler.isCorrect("RomanNumbersTest", ((TextArea) root.getCenter()).getText(), phase.getState())) {
             // prüfe ob Excercise vorbei ist
             boolean fill = false;
             if (!fill) {
 
-                // Ändere Phase
                 //Sichern des Codes fehlt noch von Tests und normaler Klasse
+                // Ändere Phase
                 phase.changeForward();
                 System.out.println(phase.getState());
                 code = textArea.getText();
                 textArea.clear();
                 first = false;
                 int exerciseNr = this.getSelectedExercise();
-                switch(phase.getState()) {
+                switch (phase.getState()) {
                     case "red":
                         exercises.get(exerciseNr).getTests().values().stream().forEach((ls) -> {
                             this.textArea.appendText(String.join(System.lineSeparator(), ls));
@@ -141,22 +153,17 @@ public class WorkshopControl implements Initializable {
                         });
                         break;
                 }
-                
-
                 // babysteps
                 // if abfrage unschön...
                 if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
                     timer.reset();
                 }
-
                 // tracking
                 // für den fall das die excercise noch weiter geht
                 // if abfrage unschön...
                 if (exercises.get(getSelectedExercise()).getTimetrack()) {
                     statsmanager.stopTimer(false);
                 }
-                
-                
                 // lade neuen Code für entsprechende Phase
                 // evtl. Methode in class Phase
             } else {
@@ -182,21 +189,17 @@ public class WorkshopControl implements Initializable {
         // load scroll pane with catalog       
         //ScrollPane center = FXMLLoader.load(WorkshopControl.class.getResource("scrollPane.fxml"));
         //root.setCenter(center);
-        
         Pane pane = FXMLLoader.load(WorkshopControl.class.getResource("workshop.fxml"));
         root.getScene().setRoot(pane);
-        
+
         // Import von Style
         URL stylesheet = WorkshopControl.class.getResource("workshop.css");
         pane.getStylesheets().add(stylesheet.toExternalForm());
         // Scene auf Stage bringen
-        
-        
-        
 
         //
         visuellPhase.getData().clear();
-        
+
         // aktiviere Checkboxen
         babysteps.setDisable(false);
         track.setDisable(false);
@@ -216,7 +219,7 @@ public class WorkshopControl implements Initializable {
         this.exercises = new ArrayList();
         this.radioGroup = new ToggleGroup();
         this.readCatalog();
-        
+
     }
 
     public static void addExercise(Exercise exercise) {
@@ -234,9 +237,9 @@ public class WorkshopControl implements Initializable {
         column.setPercentWidth(70);
         lblGrid.getColumnConstraints().add(column);
 
-       // lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN)
-       //         ? "False" : exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
-        lblGrid.add(new Label("Babysteps: " + exercise.getBabysteps()+"s"), 1, 0);
+        // lblGrid.add(new Label("Babysteps: " + (exercise.getBabysteps().equals(LocalTime.MIN)
+        //         ? "False" : exercise.getBabysteps().toSecondOfDay() + "s")), 1, 0);
+        lblGrid.add(new Label("Babysteps: " + exercise.getBabysteps() + "s"), 1, 0);
         lblGrid.add(new Label("Timetrack: " + exercise.getTimetrack()), 1, 1);
 
         RadioButton cb = new RadioButton();
@@ -260,7 +263,7 @@ public class WorkshopControl implements Initializable {
                 = FXCollections.observableArrayList(
                         new PieChart.Data("Make the test pass", 30),
                         new PieChart.Data("Refactor", 30),
-                        new PieChart.Data("Write a failing test", 30));        
+                        new PieChart.Data("Write a failing test", 30));
         visuellPhase.setData(pieChartData);
 
         URL stylesheet = WorkshopControl.class.getResource("piechart.css");
@@ -275,36 +278,53 @@ public class WorkshopControl implements Initializable {
 
         return -1;
     }
+
     private boolean isExcerciseSelected() {
         return (RadioButton) radioGroup.getSelectedToggle() != null;
 
     }
+
     private void setBabysteps() {
         timer = new Timer();
     }
+
     private void setTracking() {
         statsmanager = new StatsManager();
         statsmanager.startTimer(phase.getState(), exercises.get(getSelectedExercise()).getName());
     }
-    public void goBack(){
-        if (first) {
 
-        } else {
-            switch (phase.getState()) {
-                case "green":
-                    phase.changeBackward();
-                    textArea.clear();
-                    textArea.setText(code);
-                    break;
-                case "red":
-                    phase.changeBackward();
-                    textArea.clear();
-                    textArea.setText(code);
-                    break;
-            }
+    public void makeBabyStep() {
+        switch (phase.getState()) {
+            case "green":
+                phase.changeBackward();
+                textArea.clear();
+                textArea.setText(testCode);
+                code = testCode;
+                break;
+            case "red":
+                System.out.println("AMK");
+                textArea.clear();
+                textArea.setText(testCode);
+                break;
         }
     }
-    public Exercise getSelExercise(){
+
+    public void goBack() {
+        phase.changeBackward();
+        switch (phase.getState()) {
+            case "red":
+                textArea.clear();
+                textArea.setText(code);
+                break;
+            case "refactor":
+            case "green":
+                textArea.clear();
+                textArea.setText(code);
+                break;
+        }
+    }
+
+    public Exercise getSelExercise() {
         int exerciseNr = this.getSelectedExercise();
         return exercises.get(exerciseNr);
     }
@@ -336,6 +356,7 @@ public class WorkshopControl implements Initializable {
                     break;
             }
         }
+
         public void changeBackward() {
             switch (state) {
                 case "red":
@@ -370,14 +391,14 @@ public class WorkshopControl implements Initializable {
             seconds = 0;
             System.out.println(maxTime);
             Exercise current = getSelExercise();
-            
+
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;
                 time = seconds / 60 + ":" + seconds % 60;
                 timeLabel.setText(time);
-                if(seconds == current.getBabysteps() && !phase.getState().equals("reafctor")){
+                if (seconds == current.getBabysteps() && !phase.getState().equals("reafctor")) {
                     reset();
-                    goBack();
+                    makeBabyStep();
                 }
             }));
             timeline.setCycleCount(Timeline.INDEFINITE);
@@ -387,6 +408,7 @@ public class WorkshopControl implements Initializable {
         public void stop() {
             timeline.stop();
         }
+
         public void reset() {
             seconds = 0;
         }
@@ -395,6 +417,7 @@ public class WorkshopControl implements Initializable {
         public int getSeconds() {
             return seconds;
         }
+
         public String getTime() {
             return time;
         }
@@ -426,30 +449,17 @@ public class WorkshopControl implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
-    
+
     //Just a little Idea and not finished, feel free to delete.
-    
     @FXML
-    protected void lightOnAction(){
-        URL stylesheet = getClass().getResource("workshopLight.css");
-        this.root.getStylesheets().add(stylesheet.toExternalForm());
-    }
-        
-    @FXML
-    protected void darkOnAction(){
-        URL stylesheet = getClass().getResource("workshopDark.css");
-        this.root.getStylesheets().add(stylesheet.toExternalForm());
-    }
-    
-    @FXML
-    protected void openOptions() throws IOException{
+    protected void openOptions() throws IOException {
         Stage optionsStage = new Stage();
-        optionsStage.setTitle("Optios");        
-        optionsStage.centerOnScreen();       
-        
+        optionsStage.setTitle("Optios");
+        optionsStage.centerOnScreen();
+
         Scene scene;
         Pane oproot = FXMLLoader.load(getClass().getResource("options.fxml"));
-   
+
         // Import von Style
         URL stylesheet = getClass().getResource("menu.css");
         oproot.getStylesheets().add(stylesheet.toExternalForm());
@@ -458,6 +468,18 @@ public class WorkshopControl implements Initializable {
         scene = new Scene(oproot);
         optionsStage.setScene(scene);
         optionsStage.show();
+
     }
-    
+
+    @FXML
+    protected void lightOnAction() {
+        URL stylesheet = getClass().getResource("workshopLight.css");
+        this.root.getStylesheets().add(stylesheet.toExternalForm());
+    }
+
+    @FXML
+    protected void darkOnAction() {
+        URL stylesheet = getClass().getResource("workshopDark.css");
+        this.root.getStylesheets().add(stylesheet.toExternalForm());
+    }
 }
