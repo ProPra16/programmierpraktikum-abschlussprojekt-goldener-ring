@@ -27,7 +27,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import statistics.StatsManager;
@@ -105,7 +104,7 @@ public class WorkshopControl implements Initializable {
     }
 
     @FXML
-    private void handleBackButtonOnAction(ActionEvent event){
+    protected void handleBackButtonOnAction(ActionEvent event){
         goBack();
     }
     
@@ -418,7 +417,7 @@ public class WorkshopControl implements Initializable {
         rootTmp.setCenter(centerLabel);
 
         // Import von Styles
-        URL stylesheet = WorkshopControl.class.getResource("about.css");
+        URL stylesheet = WorkshopControl.class.getResource("menu.css");
         rootTmp.getStylesheets().add(stylesheet.toExternalForm());
 
         //anzeigen lassen
@@ -432,17 +431,16 @@ public class WorkshopControl implements Initializable {
     //Just a little Idea and not finished, feel free to delete.
     
     @FXML
-    public void openOptions() throws IOException{
+    protected void openOptions() throws IOException{
         Stage optionsStage = new Stage();
-        optionsStage.setTitle("Optios");
-        optionsStage.setScene(new Scene(new StackPane()));
+        optionsStage.setTitle("Optios");        
         optionsStage.centerOnScreen();       
         
         Scene scene;
-        Pane oproot = FXMLLoader.load(WorkshopControl.class.getResource("options.fxml"));
+        Pane oproot = FXMLLoader.load(getClass().getResource("options.fxml"));
    
         // Import von Style
-        URL stylesheet = WorkshopControl.class.getResource("workshop.css");
+        URL stylesheet = getClass().getResource("menu.css");
         oproot.getStylesheets().add(stylesheet.toExternalForm());
 
         // Scene auf Stage bringen
