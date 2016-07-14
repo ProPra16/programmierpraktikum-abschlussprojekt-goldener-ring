@@ -1,10 +1,9 @@
-﻿package gui;
+package gui;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -15,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -96,11 +97,11 @@ public class WorkshopControl implements Initializable {
 
             // babysteps
             // sehr unschöne if abfrage...
-            if (exercises.get(getSelectedExercise()).getBabysteps() > 0 || babysteps.isSelected()) {
+            if (babysteps.isSelected()) {
                 setBabysteps();
             }
             // tracking
-            if (exercises.get(getSelectedExercise()).getTimetrack() || track.isSelected()) {
+            if (track.isSelected()) {
                 setTracking();
             }
             // PieChart
@@ -177,13 +178,13 @@ public class WorkshopControl implements Initializable {
                 }
                 // babysteps
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getBabysteps() > 0  || babysteps.isSelected()) {
+                if (babysteps.isSelected()) {
                     timer.reset();
                 }
                 // tracking
                 // für den fall das die excercise noch weiter geht
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getTimetrack() || track.isSelected()) {
+                if (track.isSelected()) {
                     statsmanager.stopTimer(false);
                 }
                 // lade neuen Code für entsprechende Phase
