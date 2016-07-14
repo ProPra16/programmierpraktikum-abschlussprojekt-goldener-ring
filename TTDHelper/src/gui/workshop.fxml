@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
 
-<BorderPane id="borderpane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WorkshopControl">
+<BorderPane id="borderpane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WorkshopControl">
     <top>
         <MenuBar id="menubar" BorderPane.alignment="CENTER">
             <menus>
@@ -28,7 +28,7 @@
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem id="menuitem" mnemonicParsing="false" text="Help" />
+                        <MenuItem id="menuitem" mnemonicParsing="false" text="User Guide" onAction="#handleUserGuideOnAction" />
                     </items>
                 </Menu>
             </menus>

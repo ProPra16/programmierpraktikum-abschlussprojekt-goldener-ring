@@ -1,5 +1,6 @@
-package gui;
+﻿package gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import javafx.util.Duration;
 import statistics.StatsManager;
 import util.CodeCompiler;
 import util.Exercise;
+import util.TextLoader;
 import xml.DOMReader;
 
 public class WorkshopControl implements Initializable {
@@ -94,13 +96,11 @@ public class WorkshopControl implements Initializable {
 
             // babysteps
             // sehr unschöne if abfrage...
-            if (exercises.get(getSelectedExercise()).getBabysteps() > 0 && !babysteps.isSelected()
-                    || exercises.get(getSelectedExercise()).getBabysteps() < 0 && babysteps.isSelected()) {
+            if (exercises.get(getSelectedExercise()).getBabysteps() > 0 || babysteps.isSelected()) {
                 setBabysteps();
             }
             // tracking
-            if (exercises.get(getSelectedExercise()).getTimetrack() && !track.isSelected()
-                    || !exercises.get(getSelectedExercise()).getTimetrack() && track.isSelected()) {
+            if (exercises.get(getSelectedExercise()).getTimetrack() || track.isSelected()) {
                 setTracking();
             }
             // PieChart
@@ -177,15 +177,13 @@ public class WorkshopControl implements Initializable {
                 }
                 // babysteps
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getBabysteps() > 0 && !babysteps.isSelected()
-                        || exercises.get(getSelectedExercise()).getBabysteps() < 0 && babysteps.isSelected()) {
+                if (exercises.get(getSelectedExercise()).getBabysteps() > 0  || babysteps.isSelected()) {
                     timer.reset();
                 }
                 // tracking
                 // für den fall das die excercise noch weiter geht
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getTimetrack() && !track.isSelected()
-                        || !exercises.get(getSelectedExercise()).getTimetrack() && track.isSelected()) {
+                if (exercises.get(getSelectedExercise()).getTimetrack() || track.isSelected()) {
                     statsmanager.stopTimer(false);
                 }
                 // lade neuen Code für entsprechende Phase
@@ -552,5 +550,18 @@ public class WorkshopControl implements Initializable {
         Scene scene = new Scene(oproot);
         optionsStage.setScene(scene);
         optionsStage.show();
+    }
+
+    @FXML
+    protected void handleUserGuideOnAction(ActionEvent event){
+        TextField guide = new TextField();
+        String text = TextLoader.load(new File("guide.txt"));
+        guide.setText(text);
+        guide.setAlignment(Pos.TOP_LEFT);
+        Stage stage = new Stage();
+        stage.setTitle("User Guide");
+        stage.setScene(new Scene(guide, 400, 200));
+        stage.centerOnScreen();
+        stage.show();
     }
 }
