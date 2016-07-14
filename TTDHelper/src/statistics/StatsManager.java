@@ -16,10 +16,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.util.Duration;
 
-/**
- *
- * @author Lars
- */
+
 public class StatsManager {
 
     private final List<String> red = new ArrayList(); // index 0
@@ -39,13 +36,12 @@ public class StatsManager {
         timer = new Timer();
     }
 
-    // nur aufrufen, wenn eine neue Aufgabe beginnt
     /**
      * Starts timer. Phase String is converted to int and set to Index.
      * Name set to name of current excersise.
      * 
      * @param phase name of Phase
-     * @param nameOfExcercise 
+     * @param nameOfExcercise Name of the Excercise the user is currently working on.
      */
     
     
@@ -57,7 +53,7 @@ public class StatsManager {
 
     /**
      * Stops timer if completey is true, else creates splits and continues counting.
-     * @param completly 
+     * @param completly Indicates if excercise is done.
      */
     
     public void stopTimer(boolean completly) {
@@ -78,7 +74,6 @@ public class StatsManager {
     }
     
 
-    // Verweis auf Workshop Control createPieChart Methode 
     
     /**
      * Creates Linechart for Phases, using linechart.fxml.
@@ -111,6 +106,14 @@ public class StatsManager {
         // evtl. import von css Datei 
         return root;
     }
+    
+    /**
+     * Adds new Data to the given series, based on given index.
+     * 
+     * @param series 
+     * @param index
+     * @return series
+     */
 
     private XYChart.Series getSeries(XYChart.Series series, int index) {
         for (int i = 0; i < stats[index].size(); i++) {
@@ -118,7 +121,12 @@ public class StatsManager {
         }
         return series;
     }
-
+    
+    /**
+     * Converts phase from String to int.
+     * 
+     * @param phase Phase the user is currently in.
+     */
     private void setIndex(String phase) {
         index = -1;
         switch (phase) {
@@ -149,6 +157,10 @@ public class StatsManager {
             seconds = 0;
         }
 
+        /**
+         * Creates new timer and starts it.
+         */
+        
         public void start() {            
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
                 seconds += 1;

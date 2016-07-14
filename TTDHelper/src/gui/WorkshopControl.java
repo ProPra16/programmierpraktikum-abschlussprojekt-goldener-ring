@@ -456,7 +456,6 @@ public class WorkshopControl implements Initializable {
         stage.show();
     }
 
-    //Just a little Idea and not finished, feel free to delete.
     @FXML
     protected void handleViewMenuOnAction() throws IOException {
         Stage optionsStage = new Stage();

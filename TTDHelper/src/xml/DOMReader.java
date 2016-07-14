@@ -25,7 +25,11 @@ import util.Exercise;
  * @author simon
  */
 public class DOMReader {
-
+    
+    
+    /**
+     * Reads XML Catalog and parses for Excersises.
+     */
     public static void parseCatalog() 
     {
         try {

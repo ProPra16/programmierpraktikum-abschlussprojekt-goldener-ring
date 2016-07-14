@@ -25,7 +25,7 @@ public class Exercise {
         this.timetrack = false;
     }
     
-    /**
+    /*
      * Getters and Setters only. 
      */
     

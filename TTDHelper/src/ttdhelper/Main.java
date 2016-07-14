@@ -15,10 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Lars
- */
+
 public class Main extends Application {
     
     @Override
@@ -51,3 +48,5 @@ public class Main extends Application {
     }
     
 }
+
+

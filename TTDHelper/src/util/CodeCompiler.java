@@ -14,16 +14,13 @@ import vk.core.api.JavaStringCompiler;
  * @author Lars
  */
 public class CodeCompiler {
-    // soll Code des Users checken
-    
-    // von Lars @Kirill wenn ich einfach eine klammer wegnehme funktioniert das ganze, was es aber  nicht tun sollte
-    /**
+     /**
      * Tests user written test and checks if test matches the requirements of the current phase. 
      * 
-     * @param testClassName
-     * @param code
-     * @param phase
-     * @return boolean
+     * @param testClassName Name of current test.
+     * @param code Code of currently used test.
+     * @param phase Name of phase, the user is currently in. 
+     * @return boolean True if the requierements to change Phase are met.
      */
     
     public static boolean isCorrect(String testClassName, String code, String phase){
