@@ -88,11 +88,13 @@ public class WorkshopControl implements Initializable {
 
             // babysteps
             // sehr unschöne if abfrage...
-            if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
+            if (exercises.get(getSelectedExercise()).getBabysteps() > 0 && !babysteps.isSelected()
+                    || exercises.get(getSelectedExercise()).getBabysteps() < 0 && babysteps.isSelected()) {
                 setBabysteps();
             }
             // tracking
-            if (exercises.get(getSelectedExercise()).getTimetrack()) {
+            if (exercises.get(getSelectedExercise()).getTimetrack() && !track.isSelected()
+                    || !exercises.get(getSelectedExercise()).getTimetrack() && track.isSelected()) {
                 setTracking();
             }
             // PieChart
@@ -118,14 +120,14 @@ public class WorkshopControl implements Initializable {
      */
     @FXML
     protected void handlePhaseButtonOnAction(ActionEvent event) {
+        //Code sichern
         if (phase.getState().equals("red")) {
-            System.out.print("TextCode Sichern");
             testCode = textArea.getText();
         } else {
             classCode = textArea.getText();
         }
         // code nehmen und checke
-        if (CodeCompiler.isCorrect("RomanNumbersTest", ((TextArea) root.getCenter()).getText(), phase.getState())) {
+        if (CodeCompiler.isCorrect("FacultyIterationTest", ((TextArea) root.getCenter()).getText(), phase.getState())) {
             // prüfe ob Excercise vorbei ist
             boolean fill = false;
             if (!fill) {
@@ -157,13 +159,15 @@ public class WorkshopControl implements Initializable {
                 }
                 // babysteps
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getBabysteps() > 0) {
+                if (exercises.get(getSelectedExercise()).getBabysteps() > 0 && !babysteps.isSelected()
+                        || exercises.get(getSelectedExercise()).getBabysteps() < 0 && babysteps.isSelected()) {
                     timer.reset();
                 }
                 // tracking
                 // für den fall das die excercise noch weiter geht
                 // if abfrage unschön...
-                if (exercises.get(getSelectedExercise()).getTimetrack()) {
+                if (exercises.get(getSelectedExercise()).getTimetrack() && !track.isSelected()
+                        || !exercises.get(getSelectedExercise()).getTimetrack() && track.isSelected()) {
                     statsmanager.stopTimer(false);
                 }
                 // lade neuen Code für entsprechende Phase
@@ -195,7 +199,7 @@ public class WorkshopControl implements Initializable {
         root.getScene().setRoot(pane);
 
         // Import von Style
-        URL stylesheet = WorkshopControl.class.getResource("workshop.css");
+        URL stylesheet = WorkshopControl.class.getResource("workshopDark.css");
         pane.getStylesheets().add(stylesheet.toExternalForm());
         // Scene auf Stage bringen
 
@@ -482,11 +486,11 @@ public class WorkshopControl implements Initializable {
         oproot.getStylesheets().add(stylesheet.toExternalForm());
 
         // buttons on Action
-        darkButton.setOnAction((ActionEvent event) -> {            
+        darkButton.setOnAction((ActionEvent event) -> {
             root.getStylesheets().clear();
             root.getStylesheets().add(WorkshopControl.class.getResource("workshopDark.css").toExternalForm());
         });
-        
+
         lightButton.setOnAction((ActionEvent event) -> {
             root.getStylesheets().clear();
             root.getStylesheets().add(WorkshopControl.class.getResource("workshopLight.css").toExternalForm());
