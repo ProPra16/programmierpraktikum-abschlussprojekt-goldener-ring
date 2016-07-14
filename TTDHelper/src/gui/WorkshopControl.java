@@ -66,6 +66,12 @@ public class WorkshopControl implements Initializable {
     @FXML
     private PieChart visuellPhase;
 
+    /**
+     * Starts chosen Excercise and modifiers like babysteps.
+     * 
+     * @param event click on Button.
+     */
+    
     @FXML
     protected void handleReadyButtonOnAction(ActionEvent event) {
         if (isExcerciseSelected()) {
@@ -109,6 +115,11 @@ public class WorkshopControl implements Initializable {
         }
     }
 
+    /**
+     * Returns to previous phase.
+     * @param event click on Button.
+     */
+    
     @FXML
     protected void handleBackButtonOnAction(ActionEvent event) {
         goBack();
@@ -118,6 +129,13 @@ public class WorkshopControl implements Initializable {
     WICHTIG!!!!!
     "RomanNumbersTest ist Hardcoded, Simon wird ihn auf softCoded ändern.
      */
+    
+    /**
+     * Switches to nnext Phase if button is clicked and requierements to switch are met.
+     * 
+     * @param event click on Button. 
+     */
+    
     @FXML
     protected void handlePhaseButtonOnAction(ActionEvent event) {
         //Code sichern
@@ -184,6 +202,14 @@ public class WorkshopControl implements Initializable {
         }
     }
 
+    /**
+     * Cancels current excercise and returns to startscreen.
+     * 
+     * 
+     * @param event click on Button.
+     * @throws IOException 
+     */
+    
     @FXML
     protected void startNewExerciseOnAction(ActionEvent event) throws IOException {
         // stop Time and reset
@@ -219,6 +245,12 @@ public class WorkshopControl implements Initializable {
         DOMReader.parseCatalog();
     }
 
+    /**
+     * Initializes exercises radioGroup and Catalog.
+     * @param url 
+     * @param rb 
+     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         WorkshopControl.activeObject = this;
@@ -228,6 +260,11 @@ public class WorkshopControl implements Initializable {
 
     }
 
+    /**
+     * Adds exercises to screen from Catalog.
+     * @param exercise 
+     */
+    
     public static void addExercise(Exercise exercise) {
 
         WorkshopControl.activeObject.exercises.add(exercise);
@@ -253,6 +290,11 @@ public class WorkshopControl implements Initializable {
         grid.add(cb, 1, grid.getChildren().size() / 2);
     }
 
+    /**
+     * Changes from Code-writing phase to Test-writing phase.
+     * @param exercise current worked on exercise.
+     */
+    
     private void changeToTest(Exercise exercise) {
         this.textArea = new TextArea();
         this.root.setCenter(this.textArea);
@@ -429,6 +471,12 @@ public class WorkshopControl implements Initializable {
         }
     }
 
+    /**
+     * Creates new Windows that displays informations of the the creators.
+     * 
+     * @param e click on Button.
+     */
+    
     // ist da aber mehr auch nicht...
     @FXML
     protected void AboutOnAction(ActionEvent e) {
@@ -455,7 +503,12 @@ public class WorkshopControl implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
-
+    
+    /**
+     * When clickes creates new Window with 2 Buttons which change the startscreen style.
+     * @throws IOException 
+     */
+    
     @FXML
     protected void handleViewMenuOnAction() throws IOException {
         Stage optionsStage = new Stage();
