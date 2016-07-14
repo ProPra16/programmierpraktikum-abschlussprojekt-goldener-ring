@@ -1,0 +1,18 @@
+Zusammenfassung über geschriebenen Code:
+
+- Die zweite Erweiterung, das Timetracking, wurde hinzugefügt (Diese läuft intern ab und wird dem User nur per PieChart visuell dargestellt)
+- Bugs wurden gefixed und einige Klassen überarbeitet
+- Ein Button zum zurückspringen in die vorherige Phase wurde erstellt, falls man Babysteps nicht aktiviert hat
+- Javadocs wurden erstellt
+- BabySteps und Timetracking sind nun deaktivierbar durch die Checkboxen
+- Es wurden noch ein paar Tests zum Katalog hinzugefügt
+- Ein neues auswählbares Design wurde erstellt (in View)
+- Die Babysteps wurden softcodiert und laufen 
+- Unter anderem wurden noch weitere Bugs gefixed
+- Ein Benutzerhandbuch ist im Programm enthalten, mit Help ruft man es auf
+
+Zusammenfassung vom Gespräch:
+
+--> Planung: 
+
+- an den kommenden Tagen werden alle weiteren Bugs gefixed und alles wird kontrolliert und getestet
