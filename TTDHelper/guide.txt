@@ -1,2 +1,47 @@
 #User Guide:
 
+#Content:
+
+1) Structure
+2) Start An Excercise
+3) Particularities
+
+#Structure
+
+--> At the top of the window you can see a menubar. The menubar is divided into 4 sections.
+
+Section One ["Datas"]: It starts a new excercise. At the start of your Programm the Button is disabled. Only if you are working at an excercise the button will be enabled. Otherwise nothing hapened.
+
+Section Two ["View"]: You can choose between a light and dark version of this programm 
+
+Section Three ["About"]: It is just an information.
+
+Section Four ["Help"]: Shows you this User Guide
+
+
+--> On the right side you can see two Checkboxes. These are extensions. If you click on babysteps you have a specific time for each phase of your excercise. If the time runs up you will have to do this phase from beginning.
+
+--> On the left side you can see your Phases. The phase where you are is highlighted.
+
+--> At the bottom you have your Start Button. If you have choosen an excercise, it will be started by clicking on this Button
+
+--> If you are still working at an excercise you have another Button. The "Back Button". If you click on it you can go one phase back. But carefully, if you go back, the code of the current phase is then cleared.
+
+
+#Start An Excercise
+
+--> Red Phase
+After you started an excercise you go into the red phase. There you have to write a failing test. We loaded a scaffolding for you, so you only have to write your code into the loaded method.
+If you're ready click on "Go To Next Phase". Whether the phase changes you see to the left. 
+
+--> Green Phase
+In the green phase you write a method , which is to meet the previous test.
+
+--> Refactor Phase
+In the refactor phase you can revise  your code. If you're  ready click on "Go To Next Phase".
+
+
+#Particularities
+
+--> If Timetrack is on, then you get a Window with a LineChart of your times per phase.
+ 
