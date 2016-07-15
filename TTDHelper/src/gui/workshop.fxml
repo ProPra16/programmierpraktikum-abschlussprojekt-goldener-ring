@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
 
-<BorderPane id="borderpane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WorkshopControl">
+<BorderPane id="borderpane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WorkshopControl">
     <top>
         <MenuBar id="menubar" BorderPane.alignment="CENTER">
             <menus>
-                <Menu id="menu" mnemonicParsing="false" text="Datas">
+                <Menu id="menu" mnemonicParsing="false" text="Data">
                     <items>
                         <MenuItem id="menuitem" fx:id="newExcercise" disable="true" mnemonicParsing="false" onAction="#startNewExerciseOnAction" text="start new Exercise" />
                     </items>
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="Settings">
                     <items>
-                        <MenuItem id="menuitem" fx:id="view" mnemonicParsing="false" text="View" onAction="#handleViewMenuOnAction"/>
+                        <MenuItem id="menuitem" fx:id="view" mnemonicParsing="false" onAction="#handleViewMenuOnAction" text="View" />
                     </items>
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="About">
@@ -28,7 +28,7 @@
                 </Menu>
                 <Menu id="menu" mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem id="menuitem" mnemonicParsing="false" text="User Guide" onAction="#handleUserGuideOnAction" />
+                        <MenuItem id="menuitem" mnemonicParsing="false" onAction="#handleUserGuideOnAction" text="User Guide" />
                     </items>
                 </Menu>
             </menus>
@@ -62,7 +62,7 @@
         </GridPane>
     </bottom>
     <left>  
-        <GridPane id="gridpane" prefHeight="624.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <GridPane id="gridpane">
      
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -78,7 +78,7 @@
    
             </rowConstraints>
             <children>
-                <PieChart id="visuellPhase" fx:id="visuellPhase" title="Phase" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+                <PieChart id="visuellPhase" fx:id="visualPhase" title="Phase" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
    
             </children>
         </GridPane>
@@ -108,28 +108,28 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="173.0" text="Babysteps" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <CheckBox fx:id="babysteps" alignment="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <CheckBox fx:id="track" alignment="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="115.0" text="Timetrack" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="235.0" text="Settings" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <Label alignment="CENTER" text="Babysteps" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <CheckBox fx:id="babysteps" alignment="CENTER" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <CheckBox fx:id="track" alignment="CENTER" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label alignment="CENTER" text="Timetrack" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label alignment="CENTER" text="Settings" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                 </Label>
-                <Label alignment="CENTER" prefHeight="20.0" prefWidth="214.0" text="Statistic" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                <Label alignment="CENTER" text="Statistic" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                 </Label>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0" text="Time" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Label fx:id="timeLabel" prefHeight="17.0" prefWidth="125.0" text="0:0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="136.0" text="Phase" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                <Label fx:id="phaseLabel" prefHeight="17.0" prefWidth="226.0" text="choose an exercise ..." GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+                <Label alignment="CENTER" text="Time" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Label fx:id="timeLabel" text="0:0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                <Label alignment="CENTER" text="Phase" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <Label fx:id="phaseLabel" text="choose an exercise ..." GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
             </children>
         </GridPane>
     </right>
     <center>
-        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <ScrollPane hbarPolicy="NEVER" prefHeight="270.0" prefWidth="387.0">
             <content>
-                <GridPane id="catalogGrid" fx:id="catalogGrid" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                <GridPane id="catalogGrid" fx:id="catalogGrid" alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="10.0" prefWidth="650.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="10.0" prefWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="7.0" prefWidth="7.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="799.0" minWidth="0.0" prefWidth="13.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

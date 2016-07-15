@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package xml;
+package util;
 
 import gui.WorkshopControl;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,11 +12,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import util.Exercise;
 
 /**
- *
- * @author simon
+ * The Reader reads the Katalog file and parser for Exercises.
  */
 public class DOMReader {
     
@@ -76,7 +68,14 @@ public class DOMReader {
                                         //System.out.println("class Found");
                                         list = new ArrayList();
                                         list.add(clCNode.getAttributes().getNamedItem("name").getNodeValue());
-                                        list.add(clCNode.getTextContent());
+                                        String[] ts = clCNode.getTextContent().split("\n");
+                                        for(String s : ts)
+                                        {
+                                            if(s.length()>15)
+                                            {
+                                                list.add(s.substring(16));
+                                            }
+                                        }
                                         exercise.addClass(list.get(0), list.subList(1, list.size()));
                                     }
                                 }
@@ -92,8 +91,15 @@ public class DOMReader {
                                         //System.out.println("test Found");
                                         list = new ArrayList();
                                         list.add(tsCNode.getAttributes().getNamedItem("name").getNodeValue());
-                                        list.add(tsCNode.getTextContent());
-                                        exercise.addTest(list.get(0), list.subList(1, list.size()));
+                                        String[] ts = tsCNode.getTextContent().split("\n");
+                                        for(String s : ts)
+                                        {
+                                            if(s.length()>15)
+                                            {
+                                                list.add(s.substring(16));
+                                            }
+                                        }
+                                        exercise.addTest(list);
                                     }
                                 }
                                 break;

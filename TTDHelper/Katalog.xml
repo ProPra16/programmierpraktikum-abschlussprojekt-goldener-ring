@@ -9,10 +9,19 @@
             </class>
         </classes>
         <tests>
-            <test name="RomanNumberConverterTest">
+            <test name="RomanNumbersTest">
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class RomanNumbersTest {
+                    @Test
+                    public void testSomething() {
+                    }
+                }
+            </test>
+            <test name="RomanNumberTest">
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class RomanNumberTest {
                     @Test
                     public void testSomething() {
                     }

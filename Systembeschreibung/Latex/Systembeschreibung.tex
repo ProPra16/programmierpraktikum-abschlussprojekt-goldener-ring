@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage[export]{adjustbox}
+\usepackage[doublespacing]{setspace}
+
+\title{Programmierprojekt 3}
+\date{\copyright\today}
+
+\parindent 0pt
+\def\labelitemii{$\bullet$}
+\raggedright
+
+\begin{document}
+	
+	\newpage
+	
+	\section{Systembeschreibung}
+	\subsection{ttdhelper}
+	Das Programm ist in vier Packages aufgeteilt.
+	Im ttdhelper package befindet sich die Main Class, die JavaFX initialisiert.
+	\subsection{gui}
+	Im GUI Package liegt die WorkshopControl, die als GUI Controller und Basis-Logik Klasse dient. Es gibt eine Zentralverwaltung der gesammelten Aufgaben und die Statistiken und Timer werden von hier aus gesteuert.
+	Die Klasse hat als Attribute die Objekte des Fensters, wie Labels, TextAreas etc., sowie eine Liste mit Aufgaben die aus dem Katalog geladen werden. Unter anderem hat die Klasse noch die inneren Klassen Timer und Phase. Diese sind für das Regeln der Logik mit den Erweiterungen wichtig. Der Sinn des Timers ist es, dem Benutzer die Zeit und falls Babysteps eingeschaltet sind für das regeln der Babysteps. Der Sinn von der Klasse Phase ist es die derzeitigen Phasen anzugeben, sowie das hin und her wechseln zwischen den einzelnen Phasen.
+	 
+	Es sind noch weitere css und fxml Dateien vorhanden für verschiedene Fenster und Designs.
+	\subsection{util}
+	Das Util Package beinhaltet alle Hilfsklassen. 
+	Der Code Compiler prüft durch eine statische Methode alle bisher freigeschalteten Tests zur Klasse der aktuellen Aufgabe.
+	Die Exercise ist im Endeffekt ein Wrapper für alle Variablen für die Speicherung der Werte der Aufgaben, wie beispielsweise Name der Übung, Beschreibung, Klassenvorlagen etc.
+	
+	Der StatsManager speichert und organisiert die einzelnen Timer für das Tracking. Außerdem stellt es die Methode für die Erzeugung einer Linechart zur Verfügung.
+	Der TextLoader gibt Dateiinhalte als Strings aus.
+	Der DOMReader liest die Katalogdatei aus und erzeugt neue Aufgaben beim Traversieren des Knotenbaums, die zur Zentralsteuerung im WorkshopController gegeben wird.
+\end{document}

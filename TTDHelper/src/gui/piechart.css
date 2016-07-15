@@ -1,16 +1,11 @@
 /*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 05.07.2016, 15:50:29
-    Author     : Lars
-*/
-
 .default-color0.chart-pie { -fx-pie-color: #00FF00; }
 .default-color1.chart-pie { -fx-pie-color: #000000; }
 .default-color2.chart-pie { -fx-pie-color: #FF0000; }
 .default-color3.chart-pie { -fx-pie-color: #00FF00; }
 .default-color4.chart-pie { -fx-pie-color: #000000; }
-.default-color5.chart-pie { -fx-pie-color: #FF0000; }
+.default-color5.chart-pie { -fx-pie-color: #FF0000; }*/
+
+.data0.chart-pie{-fx-pie-color: #00FF00;}
+.data1.chart-pie{-fx-pie-color: #000000;}
+.data2.chart-pie{-fx-pie-color: #FF0000;}
