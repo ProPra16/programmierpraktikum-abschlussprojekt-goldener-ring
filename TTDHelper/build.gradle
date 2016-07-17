@@ -46,3 +46,21 @@ jar {
         )
     }
 }
+
+task copyCatalog{
+		copy{
+			from (projectDir){
+                include 'Katalog.xml'
+			}
+			into 'build/libs'
+		}
+}
+
+task runFinalJar(type: JavaExec) {
+   classpath = files('build/libs/TTDHelper.jar')
+   classpath += sourceSets.main.runtimeClasspath
+   main = "ttdhelper.Main"
+}
+
+build.dependsOn.add("copyCatalog")
+build.dependsOn.add("runFinalJar")
